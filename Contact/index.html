@@ -10,12 +10,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-dark: #1f2c3b;
-            --primary-mid:  #2c3e50;
+            --primary-dark: #282828;
+            --primary-mid:  #3c3c3c;
+            --header-bg:    #dcdcc8;
             --accent-teal:  #a98e57;
             --accent-light: #c9ad7a;
             --body-bg:      #f1e5cb;
-            --card-bg:      #ffffff;
+            --card-bg:      #faf7f2;
             --text-dark:    #2c1e0f;
             --text-muted:   #7a6a50;
             --white:        #ffffff;
@@ -32,16 +33,16 @@
         .top-banner { background: var(--accent-teal); color: white; text-align: center; padding: 8px; font-size: 0.88rem; font-weight: 500; }
         .top-banner a { color: white; font-weight: 700; text-decoration: underline; margin-left: 8px; }
 
-        header { background: var(--primary-dark); display: flex; justify-content: space-between; align-items: center; padding: 0 5%; height: 70px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.25); }
+        header { background: var(--header-bg); display: flex; justify-content: space-between; align-items: center; padding: 0 5%; height: 70px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 1px 0 rgba(169,142,87,0.4), 0 2px 14px rgba(100,70,20,0.1); border-bottom: 1px solid rgba(169,142,87,0.28); }
         .logo { display: flex; align-items: center; gap: 10px; }
-        .logo-img { height: 55px; width: auto; object-fit: contain; transition: height 0.3s; mix-blend-mode: screen; filter: brightness(1.08); }
-        .mobile-menu-btn { display: none; color: white; font-size: 1.4rem; cursor: pointer; padding: 5px; }
+        .logo-img { height: 55px; width: auto; object-fit: contain; transition: height 0.3s; mix-blend-mode: multiply; filter: brightness(1.02); }
+        .mobile-menu-btn { display: none; color: var(--primary-dark); font-size: 1.4rem; cursor: pointer; padding: 5px; }
         nav ul { display: flex; list-style: none; gap: 5px; align-items: center; }
-        nav ul li a { color: rgba(255,255,255,0.85); padding: 8px 14px; border-radius: 4px; font-size: 0.9rem; font-weight: 500; transition: color 0.2s, background 0.2s; }
-        nav ul li a:hover { color: white; background: rgba(255,255,255,0.1); }
-        nav ul li a.active { color: var(--accent-light); }
+        nav ul li a { color: rgba(44,28,10,0.7); padding: 8px 14px; border-radius: 4px; font-size: 0.9rem; font-weight: 500; transition: color 0.2s, background 0.2s; }
+        nav ul li a:hover { color: var(--primary-dark); background: rgba(169,142,87,0.1); }
+        nav ul li a.active { color: var(--accent-teal); font-weight: 600; }
         .nav-cta { background: var(--accent-teal) !important; color: white !important; padding: 8px 18px !important; border-radius: 4px; font-weight: 600 !important; }
-        .nav-cta:hover { background: var(--accent-light) !important; }
+        .nav-cta:hover { background: #8a7040 !important; }
 
         /* Page Hero */
         .page-hero {
@@ -142,27 +143,27 @@
         .faq-item.open .faq-answer { display: block; }
 
         /* Footer */
-        footer { background: var(--primary-dark); color: rgba(255,255,255,0.75); padding: 60px 0 0; }
+        footer { background: #d4ccb8; color: #6b5d46; padding: 60px 0 0; border-top: 2px solid rgba(169,142,87,0.35); }
         .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1.2fr; gap: 40px; padding-bottom: 50px; }
         .footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-        .footer-logo-img { height: 48px; width: auto; object-fit: contain; mix-blend-mode: screen; filter: brightness(1.08); opacity: 0.9; }
+        .footer-logo-img { height: 48px; width: auto; object-fit: contain; mix-blend-mode: multiply; filter: brightness(1.02); opacity: 0.95; }
         footer p { font-size: 0.9rem; margin-bottom: 8px; }
         footer p i { color: var(--accent-teal); margin-right: 8px; }
         .social-links { display: flex; gap: 10px; margin-top: 16px; }
-        .social-links a { width: 34px; height: 34px; background: rgba(255,255,255,0.08); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.7); font-size: 0.8rem; transition: background 0.2s, color 0.2s; }
+        .social-links a { width: 34px; height: 34px; background: rgba(169,142,87,0.1); border: 1px solid rgba(169,142,87,0.25); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #7a6a50; font-size: 0.8rem; transition: background 0.2s, color 0.2s; }
         .social-links a:hover { background: var(--accent-teal); color: white; }
-        .footer-col h4 { font-size: 0.9rem; color: white; margin-bottom: 16px; font-family: 'Inter', sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; position: relative; padding-bottom: 10px; }
+        .footer-col h4 { font-size: 0.9rem; color: var(--primary-dark); margin-bottom: 16px; font-family: 'Inter', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; position: relative; padding-bottom: 10px; }
         .footer-col h4::after { content: ''; position: absolute; left: 0; bottom: 0; width: 36px; height: 2px; background: var(--accent-teal); border-radius: 2px; }
         .footer-col ul { list-style: none; }
         .footer-col ul li { margin-bottom: 10px; }
-        .footer-col ul li a { color: rgba(255,255,255,0.65); font-size: 0.88rem; transition: color 0.2s; }
-        .footer-col ul li a:hover { color: var(--accent-light); }
-        .footer-bottom { background: rgba(0,0,0,0.25); padding: 18px 0; text-align: center; }
-        .footer-bottom p { font-size: 0.85rem; margin: 0; }
+        .footer-col ul li a { color: #7a6a50; font-size: 0.88rem; transition: color 0.2s; }
+        .footer-col ul li a:hover { color: var(--accent-teal); }
+        .footer-bottom { background: rgba(169,142,87,0.12); border-top: 1px solid rgba(169,142,87,0.25); padding: 18px 0; text-align: center; }
+        .footer-bottom p { font-size: 0.85rem; margin: 0; color: #7a6a50; }
 
         @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; } }
         @media (max-width: 768px) {
-            nav { display: none; position: fixed; top: 70px; left: 0; right: 0; background: var(--primary-dark); padding: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
+            nav { display: none; position: fixed; top: 70px; left: 0; right: 0; background: var(--header-bg); padding: 20px; border-top: 1px solid rgba(169,142,87,0.3); box-shadow: 0 8px 20px rgba(100,70,20,0.1); }
             nav.open { display: block; }
             nav ul { flex-direction: column; }
             nav ul li a { display: block; padding: 12px 16px; }
@@ -221,7 +222,7 @@
                         <div class="cd-icon"><i class="fas fa-phone"></i></div>
                         <div class="cd-text">
                             <h4>Call Us</h4>
-                            <p>+91 99999 00000</p>
+                            <p>+91 92112 93696</p>
                             <p style="font-size:0.82rem; margin-top:2px;">Mon – Sat, 9 AM – 7 PM IST</p>
                         </div>
                     </div>
@@ -230,7 +231,7 @@
                         <div class="cd-icon"><i class="fab fa-whatsapp"></i></div>
                         <div class="cd-text">
                             <h4>WhatsApp</h4>
-                            <a href="https://wa.me/919999900000?text=Hello%2C%20I%20want%20to%20know%20more%20about%20your%20publication%20services" target="_blank">Chat with us instantly</a>
+                            <a href="https://wa.me/919211293696?text=Hello%2C%20I%20want%20to%20know%20more%20about%20your%20publication%20services" target="_blank">Chat with us instantly</a>
                         </div>
                     </div>
 
@@ -379,8 +380,8 @@
                 <div class="footer-col">
                     <h4>Contact Us</h4>
                     <p><i class="fas fa-envelope"></i> info@scopussphere.com</p>
-                    <p><i class="fas fa-phone"></i> +91 99999 00000</p>
-                    <p><i class="fab fa-whatsapp"></i> <a href="https://wa.me/919999900000" style="color:inherit;">Chat on WhatsApp</a></p>
+                    <p><i class="fas fa-phone"></i> +91 92112 93696</p>
+                    <p><i class="fab fa-whatsapp"></i> <a href="https://wa.me/919211293696" style="color:inherit;">Chat on WhatsApp</a></p>
                 </div>
             </div>
         </div>
@@ -390,7 +391,7 @@
     </footer>
 
     <!-- WhatsApp Float -->
-    <a href="https://wa.me/919999900000?text=Hello%2C%20I%20want%20to%20know%20more%20about%20publication%20services" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
+    <a href="https://wa.me/919211293696?text=Hello%2C%20I%20want%20to%20know%20more%20about%20publication%20services" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
 
