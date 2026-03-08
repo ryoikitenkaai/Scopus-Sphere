@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact – Scopus Sphere</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #1f2c3b;
+            --primary-mid:  #2c3e50;
+            --accent-teal:  #a98e57;
+            --accent-light: #c9ad7a;
+            --body-bg:      #f1e5cb;
+            --card-bg:      #ffffff;
+            --text-dark:    #2c1e0f;
+            --text-muted:   #7a6a50;
+            --white:        #ffffff;
+            --border:       #ddd0b3;
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; background: var(--body-bg); color: var(--text-dark); line-height: 1.7; overflow-x: hidden; }
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; color: var(--primary-dark); line-height: 1.25; }
+        a { text-decoration: none; color: inherit; }
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 0 15px; }
+
+        .top-banner { background: var(--accent-teal); color: white; text-align: center; padding: 8px; font-size: 0.88rem; font-weight: 500; }
+        .top-banner a { color: white; font-weight: 700; text-decoration: underline; margin-left: 8px; }
+
+        header { background: var(--primary-dark); display: flex; justify-content: space-between; align-items: center; padding: 0 5%; height: 70px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.25); }
+        .logo { display: flex; align-items: center; gap: 10px; }
+        .logo-img { height: 55px; width: auto; object-fit: contain; transition: height 0.3s; mix-blend-mode: screen; filter: brightness(1.08); }
+        .mobile-menu-btn { display: none; color: white; font-size: 1.4rem; cursor: pointer; padding: 5px; }
+        nav ul { display: flex; list-style: none; gap: 5px; align-items: center; }
+        nav ul li a { color: rgba(255,255,255,0.85); padding: 8px 14px; border-radius: 4px; font-size: 0.9rem; font-weight: 500; transition: color 0.2s, background 0.2s; }
+        nav ul li a:hover { color: white; background: rgba(255,255,255,0.1); }
+        nav ul li a.active { color: var(--accent-light); }
+        .nav-cta { background: var(--accent-teal) !important; color: white !important; padding: 8px 18px !important; border-radius: 4px; font-weight: 600 !important; }
+        .nav-cta:hover { background: var(--accent-light) !important; }
+
+        /* Page Hero */
+        .page-hero {
+            background: linear-gradient(rgba(31,44,59,0.88), rgba(31,44,59,0.88)),
+                        url('https://images.unsplash.com/photo-1423666639041-f56000c27a9a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover; background-position: center;
+            padding: 100px 20px; text-align: center; color: white;
+        }
+        .page-hero h1 { font-size: 3rem; color: white; margin-bottom: 16px; }
+        .page-hero p { font-size: 1.1rem; color: rgba(255,255,255,0.8); max-width: 580px; margin: 0 auto; }
+
+        /* Contact section */
+        .contact-section { padding: 90px 0; background: white; }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 60px; align-items: start; }
+
+        /* Contact info */
+        .contact-info h2 { font-size: 1.9rem; margin-bottom: 18px; }
+        .contact-info > p { color: var(--text-muted); margin-bottom: 36px; }
+        .contact-detail { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 28px; }
+        .cd-icon { width: 48px; height: 48px; border-radius: 12px; background: rgba(169,142,87,0.1); display: flex; align-items: center; justify-content: center; color: var(--accent-teal); font-size: 1.2rem; flex-shrink: 0; }
+        .cd-text h4 { font-size: 0.9rem; margin-bottom: 4px; }
+        .cd-text p, .cd-text a { font-size: 0.95rem; color: var(--text-muted); }
+        .cd-text a:hover { color: var(--accent-teal); }
+
+        .contact-social { margin-top: 36px; }
+        .contact-social h4 { font-size: 0.9rem; font-family: 'Inter', sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--primary-dark); margin-bottom: 14px; }
+        .social-row { display: flex; gap: 10px; }
+        .social-row a { width: 40px; height: 40px; background: var(--body-bg); border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.9rem; transition: background 0.2s, color 0.2s, border-color 0.2s; }
+        .social-row a:hover { background: var(--accent-teal); color: white; border-color: var(--accent-teal); }
+
+        /* Contact form */
+        .contact-form-wrap { background: var(--body-bg); border: 1px solid var(--border); border-radius: 16px; padding: 44px; }
+        .contact-form-wrap h2 { font-size: 1.6rem; margin-bottom: 8px; }
+        .contact-form-wrap > p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 28px; }
+
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--primary-dark); margin-bottom: 6px; }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%; padding: 12px 16px;
+            border: 1.5px solid var(--border);
+            border-radius: 8px; font-family: 'Inter', sans-serif;
+            font-size: 0.92rem; color: var(--text-dark);
+            background: white; transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--accent-teal);
+            box-shadow: 0 0 0 3px rgba(169,142,87,0.12);
+        }
+        .form-group textarea { resize: vertical; min-height: 130px; }
+        .form-group select { cursor: pointer; }
+
+        .btn-submit {
+            width: 100%; padding: 14px; background: var(--accent-teal);
+            color: white; border: none; border-radius: 8px;
+            font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 600;
+            cursor: pointer; transition: background 0.25s, transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-submit:hover { background: var(--accent-light); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(169,142,87,0.4); }
+
+        .form-success {
+            display: none; background: #e8f5e9; border: 1px solid #a5d6a7;
+            border-radius: 8px; padding: 18px 24px; text-align: center;
+            color: #2e7d32; font-weight: 600; margin-top: 16px;
+        }
+
+        /* WhatsApp floating */
+        .whatsapp-float {
+            position: fixed; bottom: 24px; right: 24px; z-index: 999;
+            background: #25d366; color: white;
+            width: 56px; height: 56px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.6rem;
+            box-shadow: 0 6px 20px rgba(37,211,102,0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .whatsapp-float:hover { transform: scale(1.1); box-shadow: 0 8px 26px rgba(37,211,102,0.5); }
+
+        /* FAQ strip */
+        .faq-strip { padding: 80px 0; background: var(--body-bg); }
+        .faq-strip h2 { font-size: 2rem; text-align: center; margin-bottom: 12px; }
+        .faq-strip h2::after { content: ''; display: block; width: 60px; height: 3px; background: var(--accent-teal); margin: 14px auto 0; border-radius: 2px; }
+        .faq-question:hover { background: #faf4e8; }
+        .faq-strip > .container > p { text-align: center; color: var(--text-muted); margin-bottom: 40px; }
+        .faq-list { max-width: 720px; margin: 0 auto; }
+        .faq-item { border: 1px solid var(--border); border-radius: 10px; margin-bottom: 12px; overflow: hidden; }
+        .faq-question { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 18px 22px; background: none; border: none; cursor: pointer; font-family: 'Inter', sans-serif; font-size: 0.93rem; font-weight: 600; color: var(--primary-dark); text-align: left; transition: background 0.2s; }
+        .faq-question:hover { background: #f0f7fa; }
+        .faq-icon { color: var(--accent-teal); transition: transform 0.3s; flex-shrink: 0; margin-left: 12px; }
+        .faq-item.open .faq-icon { transform: rotate(45deg); }
+        .faq-answer { display: none; padding: 0 22px 18px; font-size: 0.9rem; color: var(--text-muted); border-top: 1px solid var(--border); line-height: 1.75; }
+        .faq-answer p { padding-top: 14px; }
+        .faq-item.open .faq-answer { display: block; }
+
+        /* Footer */
+        footer { background: var(--primary-dark); color: rgba(255,255,255,0.75); padding: 60px 0 0; }
+        .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1.2fr; gap: 40px; padding-bottom: 50px; }
+        .footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+        .footer-logo-img { height: 48px; width: auto; object-fit: contain; mix-blend-mode: screen; filter: brightness(1.08); opacity: 0.9; }
+        footer p { font-size: 0.9rem; margin-bottom: 8px; }
+        footer p i { color: var(--accent-teal); margin-right: 8px; }
+        .social-links { display: flex; gap: 10px; margin-top: 16px; }
+        .social-links a { width: 34px; height: 34px; background: rgba(255,255,255,0.08); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.7); font-size: 0.8rem; transition: background 0.2s, color 0.2s; }
+        .social-links a:hover { background: var(--accent-teal); color: white; }
+        .footer-col h4 { font-size: 0.9rem; color: white; margin-bottom: 16px; font-family: 'Inter', sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; position: relative; padding-bottom: 10px; }
+        .footer-col h4::after { content: ''; position: absolute; left: 0; bottom: 0; width: 36px; height: 2px; background: var(--accent-teal); border-radius: 2px; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 10px; }
+        .footer-col ul li a { color: rgba(255,255,255,0.65); font-size: 0.88rem; transition: color 0.2s; }
+        .footer-col ul li a:hover { color: var(--accent-light); }
+        .footer-bottom { background: rgba(0,0,0,0.25); padding: 18px 0; text-align: center; }
+        .footer-bottom p { font-size: 0.85rem; margin: 0; }
+
+        @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) {
+            nav { display: none; position: fixed; top: 70px; left: 0; right: 0; background: var(--primary-dark); padding: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
+            nav.open { display: block; }
+            nav ul { flex-direction: column; }
+            nav ul li a { display: block; padding: 12px 16px; }
+            .mobile-menu-btn { display: block; }
+            .page-hero h1 { font-size: 2rem; }
+            .form-row { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
+        }
+        @media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } .contact-form-wrap { padding: 28px 20px; } }
+    </style>
+</head>
+<body>
+
+    <div class="top-banner">
+        Publish in Scopus &amp; WoS indexed journals — <a href="./">Talk to our experts today</a>
+    </div>
+
+    <header id="header">
+        <a href="../" class="logo">
+            <img src="../image.png" alt="Scopus Sphere" style="height:55px;width:auto;object-fit:contain;transition:height 0.3s;">
+        </a>
+        <div class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></div>
+        <nav id="mainNav">
+            <ul>
+                <li><a href="../Services/">Services</a></li>
+                <li><a href="../About/">About</a></li>
+                <li><a href="./" class="active">Contact</a></li>
+                <li><a href="./" class="nav-cta">Get Published</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="page-hero">
+        <h1>Get in Touch</h1>
+        <p>Ready to publish your research? Have questions about our services? We're here to help — reach out to us today.</p>
+    </div>
+
+    <!-- Main Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-grid">
+                <!-- Contact Info -->
+                <div class="contact-info">
+                    <h2>Let's Start Your Publication Journey</h2>
+                    <p>Fill in the form and one of our publication experts will get back to you within 24 hours. Or reach us directly via email, phone, or WhatsApp.</p>
+
+                    <div class="contact-detail">
+                        <div class="cd-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="cd-text">
+                            <h4>Email Us</h4>
+                            <a href="mailto:info@scopussphere.com">info@scopussphere.com</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-detail">
+                        <div class="cd-icon"><i class="fas fa-phone"></i></div>
+                        <div class="cd-text">
+                            <h4>Call Us</h4>
+                            <p>+91 99999 00000</p>
+                            <p style="font-size:0.82rem; margin-top:2px;">Mon – Sat, 9 AM – 7 PM IST</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-detail">
+                        <div class="cd-icon"><i class="fab fa-whatsapp"></i></div>
+                        <div class="cd-text">
+                            <h4>WhatsApp</h4>
+                            <a href="https://wa.me/919999900000?text=Hello%2C%20I%20want%20to%20know%20more%20about%20your%20publication%20services" target="_blank">Chat with us instantly</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-detail">
+                        <div class="cd-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="cd-text">
+                            <h4>Location</h4>
+                            <p>India (serving researchers globally)</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-social">
+                        <h4>Connect With Us</h4>
+                        <div class="social-row">
+                            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="contact-form-wrap">
+                    <h2>Send Us a Message</h2>
+                    <p>Tell us about your research and current status and we'll get back to you with the right guidance.</p>
+
+                    <form id="contactForm" novalidate>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="fname">First Name *</label>
+                                <input type="text" id="fname" name="fname" placeholder="Your first name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lname">Last Name *</label>
+                                <input type="text" id="lname" name="lname" placeholder="Your last name" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone / WhatsApp</label>
+                            <input type="tel" id="phone" name="phone" placeholder="+91 XXXXX XXXXX">
+                        </div>
+                        <div class="form-group">
+                            <label for="service">Service Required *</label>
+                            <select id="service" name="service" required>
+                                <option value="" disabled selected>Select a service…</option>
+                                <option>Manuscript Writing</option>
+                                <option>Editing & Proofreading</option>
+                                <option>Journal Selection</option>
+                                <option>Submission Management</option>
+                                <option>Revision / Reviewer Response Handling</option>
+                                <option>Full Publication Support</option>
+                                <option>Patent Filing</option>
+                                <option>Not sure yet – I need guidance</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="indexing">Target Indexing</label>
+                            <select id="indexing" name="indexing">
+                                <option value="" disabled selected>Select target indexing…</option>
+                                <option>Scopus</option>
+                                <option>Web of Science (WoS)</option>
+                                <option>PubMed</option>
+                                <option>Q1 / Q2 Journal</option>
+                                <option>Open Access</option>
+                                <option>Not sure yet</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" placeholder="Tell us about your research topic, current manuscript status, and any specific requirements…" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit">Send Message &nbsp;<i class="fas fa-paper-plane"></i></button>
+                        <div class="form-success" id="formSuccess">
+                            <i class="fas fa-check-circle" style="margin-right:8px;"></i>
+                            Thank you! We've received your message and will respond within 24 hours.
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Strip -->
+    <section class="faq-strip">
+        <div class="container">
+            <h2>Common Questions</h2>
+            <p>Quick answers to what researchers ask us most</p>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question"><span>How quickly will you respond to my enquiry?</span><i class="fas fa-plus faq-icon"></i></button>
+                    <div class="faq-answer"><p>We respond to all enquiries within 24 hours on business days. For urgent matters, WhatsApp is the fastest way to reach us.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question"><span>Is the initial consultation free?</span><i class="fas fa-plus faq-icon"></i></button>
+                    <div class="faq-answer"><p>Yes. The initial consultation is absolutely free. We assess your research, understand your goals, and recommend the right service package at no cost.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question"><span>What information should I share when contacting you?</span><i class="fas fa-plus faq-icon"></i></button>
+                    <div class="faq-answer"><p>Share your research domain, a brief description of your topic, current manuscript status (idea / draft / complete), and your target indexing (Scopus, WoS, etc.). The more detail you provide, the faster we can help.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question"><span>Do you work with researchers from all countries?</span><i class="fas fa-plus faq-icon"></i></button>
+                    <div class="faq-answer"><p>Yes, we work with researchers from all over the world. Our team has successfully helped authors from India, UAE, Malaysia, Vietnam, Philippines, Indonesia, Italy, and 25+ other countries.</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <img src="../image.png" alt="Scopus Sphere" style="height:48px;width:auto;object-fit:contain;opacity:0.9;">
+                    </div>
+                    <p>Your trusted partner for research publication and academic excellence.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="../Services/">Services</a></li>
+                        <li><a href="../About/">About Us</a></li>
+                        <li><a href="./">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="../Services/">Manuscript Writing</a></li>
+                        <li><a href="../Services/">Editing & Proofreading</a></li>
+                        <li><a href="../Services/">Journal Selection</a></li>
+                        <li><a href="../Services/">Patent Filing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <p><i class="fas fa-envelope"></i> info@scopussphere.com</p>
+                    <p><i class="fas fa-phone"></i> +91 99999 00000</p>
+                    <p><i class="fab fa-whatsapp"></i> <a href="https://wa.me/919999900000" style="color:inherit;">Chat on WhatsApp</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Scopus Sphere. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/919999900000?text=Hello%2C%20I%20want%20to%20know%20more%20about%20publication%20services" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        // Mobile nav
+        const btn = document.getElementById('mobileMenuBtn');
+        const nav = document.getElementById('mainNav');
+        if (btn && nav) {
+            btn.addEventListener('click', () => {
+                nav.classList.toggle('open');
+                const icon = btn.querySelector('i');
+                icon.classList.toggle('fa-bars');
+                icon.classList.toggle('fa-times');
+            });
+        }
+
+        // FAQ
+        document.querySelectorAll('.faq-question').forEach(b => {
+            b.addEventListener('click', () => {
+                const item = b.closest('.faq-item');
+                const isOpen = item.classList.contains('open');
+                document.querySelectorAll('.faq-item.open').forEach(o => o.classList.remove('open'));
+                if (!isOpen) item.classList.add('open');
+            });
+        });
+
+        // Form submit simulation
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const success = document.getElementById('formSuccess');
+            success.style.display = 'block';
+            this.querySelector('.btn-submit').disabled = true;
+            this.querySelector('.btn-submit').textContent = 'Message Sent!';
+            setTimeout(() => this.reset(), 3000);
+        });
+    </script>
+</body>
+</html>
