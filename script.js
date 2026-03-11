@@ -191,18 +191,20 @@ if (ctaForm) {
 
         const indexing = Array.from(document.querySelectorAll('input[name="ctaIndexing"]:checked')).map(c => c.value);
         const formData = new FormData();
-        formData.append('fullName', name.value.trim());
+        formData.append('name', name.value.trim());
         formData.append('email', email.value.trim());
         formData.append('whatsapp', phone.value.trim());
-        formData.append('subjectArea', subject.value.trim());
+        formData.append('subject', subject.value.trim());
         formData.append('indexing', indexing.join(', '));
-        formData.append('additionalInfo', (document.getElementById('ctaMessage')?.value || '').trim());
+        formData.append('message', (document.getElementById('ctaMessage')?.value || '').trim());
         formData.append('source', 'homepage_cta');
+        formData.append('_api_key', 'hwp_lp_8f3a2b9e1c7d4f06a5e0b2c8d3f1e7a9');
 
         fetch('https://crm.handwriterspublication.com/api/receive_lead.php', {
             method: 'POST',
             body: formData
-        }).then(r => r.json()).then(() => {
+        }).then(r => r.json()).then(data => {
+            if (data && data.success === false) throw new Error(data.message || 'Submission failed');
             const success = document.getElementById('ctaFormSuccess');
             if (success) success.style.display = 'block';
             if (btn) { btn.querySelector('.btn-text').textContent = 'Sent!'; }
@@ -212,16 +214,14 @@ if (ctaForm) {
                 if (btn) { btn.disabled = false; btn.querySelector('.btn-text').textContent = 'Send Enquiry'; }
                 if (ctaWC) ctaWC.textContent = '0/50 words';
             }, 4000);
-        }).catch(() => {
+        }).catch((err) => {
             const success = document.getElementById('ctaFormSuccess');
-            if (success) success.style.display = 'block';
-            if (btn) { btn.querySelector('.btn-text').textContent = 'Sent!'; }
+            if (success) { success.style.display = 'block'; success.style.color = '#EF4444'; success.textContent = 'Something went wrong. Please try again or contact us via WhatsApp.'; }
+            if (btn) { btn.querySelector('.btn-text').textContent = 'Failed — Try Again'; }
             setTimeout(() => {
-                this.reset();
-                if (success) success.style.display = 'none';
+                if (success) { success.style.display = 'none'; success.style.color = ''; success.textContent = 'Thank you! We will get in touch shortly.'; }
                 if (btn) { btn.disabled = false; btn.querySelector('.btn-text').textContent = 'Send Enquiry'; }
-                if (ctaWC) ctaWC.textContent = '0/50 words';
-            }, 4000);
+            }, 5000);
         });
     });
 }
@@ -318,18 +318,20 @@ if (contactForm) {
 
         const indexing = Array.from(document.querySelectorAll('input[name="indexing"]:checked')).map(c => c.value);
         const formData = new FormData();
-        formData.append('fullName', document.getElementById('fullName').value.trim());
+        formData.append('name', document.getElementById('fullName').value.trim());
         formData.append('email', document.getElementById('email').value.trim());
         formData.append('whatsapp', wp.value.trim());
-        formData.append('subjectArea', document.getElementById('subjectArea').value.trim());
+        formData.append('subject', document.getElementById('subjectArea').value.trim());
         formData.append('indexing', indexing.join(', '));
-        formData.append('additionalInfo', (document.getElementById('additionalInfo')?.value || '').trim());
+        formData.append('message', (document.getElementById('additionalInfo')?.value || '').trim());
         formData.append('source', 'contact_page');
+        formData.append('_api_key', 'hwp_lp_8f3a2b9e1c7d4f06a5e0b2c8d3f1e7a9');
 
         fetch('https://crm.handwriterspublication.com/api/receive_lead.php', {
             method: 'POST',
             body: formData
-        }).then(r => r.json()).then(() => {
+        }).then(r => r.json()).then(data => {
+            if (data && data.success === false) throw new Error(data.message || 'Submission failed');
             const success = document.getElementById('formSuccess');
             if (success) success.style.display = 'block';
             if (btn) { btn.innerHTML = '<i class="fas fa-check-circle"></i> Message Sent!'; }
@@ -338,15 +340,14 @@ if (contactForm) {
                 if (btn) { btn.disabled = false; btn.innerHTML = 'Send Message <i class="fas fa-paper-plane"></i>'; }
                 if (wordCount) wordCount.textContent = '0/50 words';
             }, 4000);
-        }).catch(() => {
+        }).catch((err) => {
             const success = document.getElementById('formSuccess');
-            if (success) success.style.display = 'block';
-            if (btn) { btn.innerHTML = '<i class="fas fa-check-circle"></i> Message Sent!'; }
+            if (success) { success.style.display = 'block'; success.style.color = '#EF4444'; success.innerHTML = '<i class="fas fa-exclamation-circle" style="margin-right:8px"></i> Something went wrong. Please try again or contact us via WhatsApp.'; }
+            if (btn) { btn.innerHTML = '<i class="fas fa-exclamation-circle"></i> Failed — Try Again'; }
             setTimeout(() => {
-                this.reset(); if (success) success.style.display = 'none';
+                if (success) { success.style.display = 'none'; success.style.color = ''; success.innerHTML = '<i class="fas fa-check-circle" style="margin-right:8px"></i> Thank you! We\'ve received your message and will respond within 24 hours.'; }
                 if (btn) { btn.disabled = false; btn.innerHTML = 'Send Message <i class="fas fa-paper-plane"></i>'; }
-                if (wordCount) wordCount.textContent = '0/50 words';
-            }, 4000);
+            }, 5000);
         });
     });
 }
@@ -422,18 +423,20 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 
             const indexing = Array.from(document.querySelectorAll('input[name="popupIndexing"]:checked')).map(c => c.value);
             const formData = new FormData();
-            formData.append('fullName', document.getElementById('popupName').value.trim());
+            formData.append('name', document.getElementById('popupName').value.trim());
             formData.append('email', document.getElementById('popupEmail').value.trim());
             formData.append('whatsapp', ph.value.trim());
-            formData.append('subjectArea', document.getElementById('popupSubject').value.trim());
+            formData.append('subject', document.getElementById('popupSubject').value.trim());
             formData.append('indexing', indexing.join(', '));
-            formData.append('additionalInfo', (document.getElementById('popupMsg')?.value || '').trim());
+            formData.append('message', (document.getElementById('popupMsg')?.value || '').trim());
             formData.append('source', 'popup_form');
+            formData.append('_api_key', 'hwp_lp_8f3a2b9e1c7d4f06a5e0b2c8d3f1e7a9');
 
             fetch('https://crm.handwriterspublication.com/api/receive_lead.php', {
                 method: 'POST',
                 body: formData
-            }).then(r => r.json()).then(() => {
+            }).then(r => r.json()).then(data => {
+                if (data && data.success === false) throw new Error(data.message || 'Submission failed');
                 const success = document.getElementById('popupFormSuccess');
                 if (success) success.style.display = 'block';
                 if (btn) { const txt = btn.querySelector('.popup-btn-text'); if(txt) txt.textContent = 'Submitted!'; }
@@ -443,16 +446,14 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
                     if (btn) { btn.disabled = false; const txt = btn.querySelector('.popup-btn-text'); if(txt) txt.textContent = 'Submit Enquiry'; }
                     setTimeout(closePopup, 500);
                 }, 3000);
-            }).catch(() => {
+            }).catch((err) => {
                 const success = document.getElementById('popupFormSuccess');
-                if (success) success.style.display = 'block';
-                if (btn) { const txt = btn.querySelector('.popup-btn-text'); if(txt) txt.textContent = 'Submitted!'; }
+                if (success) { success.style.display = 'block'; success.style.color = '#EF4444'; success.textContent = 'Something went wrong. Please try again or contact us via WhatsApp.'; }
+                if (btn) { const txt = btn.querySelector('.popup-btn-text'); if(txt) txt.textContent = 'Failed — Try Again'; }
                 setTimeout(() => {
-                    this.reset();
-                    if (success) success.style.display = 'none';
+                    if (success) { success.style.display = 'none'; success.style.color = ''; success.textContent = 'Thank you! We will get in touch shortly.'; }
                     if (btn) { btn.disabled = false; const txt = btn.querySelector('.popup-btn-text'); if(txt) txt.textContent = 'Submit Enquiry'; }
-                    setTimeout(closePopup, 500);
-                }, 3000);
+                }, 5000);
             });
         });
     }
