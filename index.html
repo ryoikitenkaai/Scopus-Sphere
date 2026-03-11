@@ -440,35 +440,38 @@
                         <form id="ctaContactForm">
                             <div class="glass-form-row">
                                 <div class="glass-form-group">
-                                    <input type="text" id="ctaName" placeholder="Your Name *" required>
+                                    <input type="text" id="ctaName" placeholder="Enter your full name *" required>
                                     <div class="input-glow"></div>
                                 </div>
                                 <div class="glass-form-group">
-                                    <input type="email" id="ctaEmail" placeholder="Email Address *" required>
+                                    <input type="email" id="ctaEmail" placeholder="Enter your email address *" required>
                                     <div class="input-glow"></div>
                                 </div>
                             </div>
                             <div class="glass-form-row">
                                 <div class="glass-form-group">
-                                    <input type="tel" id="ctaPhone" placeholder="WhatsApp Number *" maxlength="10" required>
+                                    <input type="tel" id="ctaPhone" placeholder="Enter your 10-digit WhatsApp number *" maxlength="10" required>
                                     <div class="input-glow"></div>
                                 </div>
                                 <div class="glass-form-group">
-                                    <select id="ctaService" required>
-                                        <option value="" disabled selected>Service Needed *</option>
-                                        <option>Manuscript Writing</option>
-                                        <option>Journal Selection</option>
-                                        <option>Editing & Proofreading</option>
-                                        <option>Patent Filing</option>
-                                        <option>Research Guidance</option>
-                                        <option>Full Publication Support</option>
-                                    </select>
+                                    <input type="text" id="ctaSubject" placeholder="Enter your subject area *" required>
                                     <div class="input-glow"></div>
                                 </div>
                             </div>
                             <div class="glass-form-group full">
-                                <textarea id="ctaMessage" placeholder="Tell us briefly about your research..." rows="3"></textarea>
+                                <label style="color:rgba(255,255,255,.5);font-size:.82rem;font-weight:600;margin-bottom:8px;display:block;">Indexing Preferences</label>
+                                <div class="checkbox-group" style="margin-bottom:0;">
+                                    <label style="color:rgba(255,255,255,.6);border-color:rgba(255,255,255,.12);background:rgba(255,255,255,.04);"><input type="checkbox" name="ctaIndexing" value="Scopus"> Scopus</label>
+                                    <label style="color:rgba(255,255,255,.6);border-color:rgba(255,255,255,.12);background:rgba(255,255,255,.04);"><input type="checkbox" name="ctaIndexing" value="WoS"> WoS</label>
+                                    <label style="color:rgba(255,255,255,.6);border-color:rgba(255,255,255,.12);background:rgba(255,255,255,.04);"><input type="checkbox" name="ctaIndexing" value="ABDC"> ABDC</label>
+                                    <label style="color:rgba(255,255,255,.6);border-color:rgba(255,255,255,.12);background:rgba(255,255,255,.04);"><input type="checkbox" name="ctaIndexing" value="Google Scholar"> Google Scholar</label>
+                                    <label style="color:rgba(255,255,255,.6);border-color:rgba(255,255,255,.12);background:rgba(255,255,255,.04);"><input type="checkbox" name="ctaIndexing" value="Others"> Others</label>
+                                </div>
+                            </div>
+                            <div class="glass-form-group full">
+                                <textarea id="ctaMessage" placeholder="Additional Information (max 50 words)" rows="3" maxlength="500"></textarea>
                                 <div class="input-glow"></div>
+                                <div class="word-count" id="ctaWordCount" style="color:rgba(255,255,255,.35);font-size:.75rem;text-align:right;margin-top:6px;">0/50 words</div>
                             </div>
                             <button type="submit" class="glass-submit-btn">
                                 <span class="btn-text">Send Enquiry</span>
@@ -553,20 +556,20 @@
                                 <div class="popup-input-group"><i class="fas fa-envelope"></i><input type="email" id="popupEmail" placeholder="Email Address *" required></div>
                             </div>
                             <div class="popup-form-row">
-                                <div class="popup-input-group"><i class="fas fa-phone"></i><input type="tel" id="popupPhone" placeholder="WhatsApp No. *" maxlength="10" required></div>
-                                <div class="popup-input-group popup-input-group--select"><i class="fas fa-concierge-bell"></i>
-                                    <select id="popupService" required>
-                                        <option value="" disabled selected>Service Needed *</option>
-                                        <option>Manuscript Writing</option>
-                                        <option>Journal Selection</option>
-                                        <option>Editing &amp; Proofreading</option>
-                                        <option>Patent Filing</option>
-                                        <option>Research Guidance</option>
-                                        <option>Full Publication Support</option>
-                                    </select>
+                                <div class="popup-input-group"><i class="fas fa-phone"></i><input type="tel" id="popupPhone" placeholder="Enter your 10-digit WhatsApp number *" maxlength="10" required></div>
+                                <div class="popup-input-group"><i class="fas fa-book"></i><input type="text" id="popupSubject" placeholder="Enter your subject area *" required></div>
+                            </div>
+                            <div style="margin-bottom:12px;">
+                                <label style="color:rgba(255,255,255,.4);font-size:.78rem;font-weight:600;margin-bottom:8px;display:block;">Indexing Preferences</label>
+                                <div class="checkbox-group" style="margin-top:0;">
+                                    <label style="color:rgba(255,255,255,.55);border-color:rgba(255,255,255,.1);background:rgba(255,255,255,.04);font-size:.8rem;"><input type="checkbox" name="popupIndexing" value="Scopus"> Scopus</label>
+                                    <label style="color:rgba(255,255,255,.55);border-color:rgba(255,255,255,.1);background:rgba(255,255,255,.04);font-size:.8rem;"><input type="checkbox" name="popupIndexing" value="WoS"> WoS</label>
+                                    <label style="color:rgba(255,255,255,.55);border-color:rgba(255,255,255,.1);background:rgba(255,255,255,.04);font-size:.8rem;"><input type="checkbox" name="popupIndexing" value="ABDC"> ABDC</label>
+                                    <label style="color:rgba(255,255,255,.55);border-color:rgba(255,255,255,.1);background:rgba(255,255,255,.04);font-size:.8rem;"><input type="checkbox" name="popupIndexing" value="Google Scholar"> Google Scholar</label>
+                                    <label style="color:rgba(255,255,255,.55);border-color:rgba(255,255,255,.1);background:rgba(255,255,255,.04);font-size:.8rem;"><input type="checkbox" name="popupIndexing" value="Others"> Others</label>
                                 </div>
                             </div>
-                            <div class="popup-input-group popup-input-group--textarea"><i class="fas fa-pencil-alt"></i><textarea id="popupMsg" placeholder="Brief about your research..." rows="2"></textarea></div>
+                            <div class="popup-input-group popup-input-group--textarea"><i class="fas fa-pencil-alt"></i><textarea id="popupMsg" placeholder="Additional Information (max 50 words)" rows="2"></textarea></div>
                             <button type="submit" class="popup-submit-btn">
                                 <span class="popup-btn-text">Submit Enquiry</span>
                                 <span class="popup-btn-icon"><i class="fas fa-arrow-right"></i></span>

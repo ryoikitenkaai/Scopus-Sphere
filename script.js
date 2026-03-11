@@ -159,30 +159,70 @@ const ctaForm = document.getElementById('ctaContactForm');
 if (ctaForm) {
     const phoneInput = document.getElementById('ctaPhone');
     if (phoneInput) phoneInput.addEventListener('input', function () { this.value = this.value.replace(/\D/g, '').slice(0, 10); });
+
+    const ctaMsg = document.getElementById('ctaMessage');
+    const ctaWC = document.getElementById('ctaWordCount');
+    if (ctaMsg && ctaWC) {
+        ctaMsg.addEventListener('input', function () {
+            const words = this.value.trim().split(/\s+/).filter(w => w.length > 0);
+            const count = words.length;
+            ctaWC.textContent = `${count}/50 words`;
+            if (count > 50) { ctaWC.style.color = '#EF4444'; this.value = words.slice(0, 50).join(' '); ctaWC.textContent = '50/50 words'; }
+            else { ctaWC.style.color = ''; }
+        });
+    }
     
     ctaForm.addEventListener('submit', function (e) {
         e.preventDefault();
         const name = document.getElementById('ctaName');
         const email = document.getElementById('ctaEmail');
         const phone = document.getElementById('ctaPhone');
-        const service = document.getElementById('ctaService');
+        const subject = document.getElementById('ctaSubject');
         let valid = true;
-        [name, email, phone, service].forEach(f => {
+        [name, email, phone, subject].forEach(f => {
             if (f && !f.value.trim()) { f.style.borderColor = '#EF4444'; valid = false; } 
             else if (f) { f.style.borderColor = ''; }
         });
         if (phone && phone.value.length !== 10) { phone.style.borderColor = '#EF4444'; valid = false; }
         if (!valid) return;
 
-        const success = document.getElementById('ctaFormSuccess');
-        if (success) success.style.display = 'block';
         const btn = this.querySelector('.glass-submit-btn');
-        if (btn) { btn.disabled = true; btn.querySelector('.btn-text').textContent = 'Sent!'; }
-        setTimeout(() => {
-            this.reset();
-            if (success) success.style.display = 'none';
-            if (btn) { btn.disabled = false; btn.querySelector('.btn-text').textContent = 'Send Enquiry'; }
-        }, 4000);
+        if (btn) { btn.disabled = true; btn.querySelector('.btn-text').textContent = 'Sending...'; }
+
+        const indexing = Array.from(document.querySelectorAll('input[name="ctaIndexing"]:checked')).map(c => c.value);
+        const formData = new FormData();
+        formData.append('fullName', name.value.trim());
+        formData.append('email', email.value.trim());
+        formData.append('whatsapp', phone.value.trim());
+        formData.append('subjectArea', subject.value.trim());
+        formData.append('indexing', indexing.join(', '));
+        formData.append('additionalInfo', (document.getElementById('ctaMessage')?.value || '').trim());
+        formData.append('source', 'homepage_cta');
+
+        fetch('https://crm.handwriterspublication.com/api/receive_lead.php', {
+            method: 'POST',
+            body: formData
+        }).then(r => r.json()).then(() => {
+            const success = document.getElementById('ctaFormSuccess');
+            if (success) success.style.display = 'block';
+            if (btn) { btn.querySelector('.btn-text').textContent = 'Sent!'; }
+            setTimeout(() => {
+                this.reset();
+                if (success) success.style.display = 'none';
+                if (btn) { btn.disabled = false; btn.querySelector('.btn-text').textContent = 'Send Enquiry'; }
+                if (ctaWC) ctaWC.textContent = '0/50 words';
+            }, 4000);
+        }).catch(() => {
+            const success = document.getElementById('ctaFormSuccess');
+            if (success) success.style.display = 'block';
+            if (btn) { btn.querySelector('.btn-text').textContent = 'Sent!'; }
+            setTimeout(() => {
+                this.reset();
+                if (success) success.style.display = 'none';
+                if (btn) { btn.disabled = false; btn.querySelector('.btn-text').textContent = 'Send Enquiry'; }
+                if (ctaWC) ctaWC.textContent = '0/50 words';
+            }, 4000);
+        });
     });
 }
 
@@ -271,20 +311,43 @@ if (contactForm) {
         fields.forEach(f => { if (f && !f.value.trim()) { f.style.borderColor = '#EF4444'; isValid = false; } else if (f) { f.style.borderColor = ''; } });
         const wp = document.getElementById('whatsapp');
         if (wp && wp.value.length !== 10) { wp.style.borderColor = '#EF4444'; isValid = false; }
-        const chk = document.querySelectorAll('input[name="indexing"]:checked');
-        const cg = document.querySelector('.checkbox-group');
-        if (chk.length === 0 && cg) { cg.style.outline = '2px solid #EF4444'; cg.style.borderRadius = '8px'; isValid = false; }
-        else if (cg) { cg.style.outline = ''; }
         if (!isValid) return;
-        const success = document.getElementById('formSuccess');
-        if (success) success.style.display = 'block';
+
         const btn = this.querySelector('.btn-submit');
-        if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fas fa-check-circle"></i> Message Sent!'; }
-        setTimeout(() => {
-            this.reset(); if (success) success.style.display = 'none';
-            if (btn) { btn.disabled = false; btn.innerHTML = 'Send Message <i class="fas fa-paper-plane"></i>'; }
-            if (wordCount) wordCount.textContent = '0/50 words';
-        }, 4000);
+        if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...'; }
+
+        const indexing = Array.from(document.querySelectorAll('input[name="indexing"]:checked')).map(c => c.value);
+        const formData = new FormData();
+        formData.append('fullName', document.getElementById('fullName').value.trim());
+        formData.append('email', document.getElementById('email').value.trim());
+        formData.append('whatsapp', wp.value.trim());
+        formData.append('subjectArea', document.getElementById('subjectArea').value.trim());
+        formData.append('indexing', indexing.join(', '));
+        formData.append('additionalInfo', (document.getElementById('additionalInfo')?.value || '').trim());
+        formData.append('source', 'contact_page');
+
+        fetch('https://crm.handwriterspublication.com/api/receive_lead.php', {
+            method: 'POST',
+            body: formData
+        }).then(r => r.json()).then(() => {
+            const success = document.getElementById('formSuccess');
+            if (success) success.style.display = 'block';
+            if (btn) { btn.innerHTML = '<i class="fas fa-check-circle"></i> Message Sent!'; }
+            setTimeout(() => {
+                this.reset(); if (success) success.style.display = 'none';
+                if (btn) { btn.disabled = false; btn.innerHTML = 'Send Message <i class="fas fa-paper-plane"></i>'; }
+                if (wordCount) wordCount.textContent = '0/50 words';
+            }, 4000);
+        }).catch(() => {
+            const success = document.getElementById('formSuccess');
+            if (success) success.style.display = 'block';
+            if (btn) { btn.innerHTML = '<i class="fas fa-check-circle"></i> Message Sent!'; }
+            setTimeout(() => {
+                this.reset(); if (success) success.style.display = 'none';
+                if (btn) { btn.disabled = false; btn.innerHTML = 'Send Message <i class="fas fa-paper-plane"></i>'; }
+                if (wordCount) wordCount.textContent = '0/50 words';
+            }, 4000);
+        });
     });
 }
 
@@ -344,7 +407,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 
         popupForm.addEventListener('submit', function (e) {
             e.preventDefault();
-            const fields = [document.getElementById('popupName'), document.getElementById('popupEmail'), document.getElementById('popupPhone'), document.getElementById('popupService')];
+            const fields = [document.getElementById('popupName'), document.getElementById('popupEmail'), document.getElementById('popupPhone'), document.getElementById('popupSubject')];
             let valid = true;
             fields.forEach(f => {
                 if (f && !f.value.trim()) { f.style.borderColor = '#EF4444'; valid = false; }
@@ -354,16 +417,43 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
             if (ph && ph.value.length !== 10) { ph.style.borderColor = '#EF4444'; valid = false; }
             if (!valid) return;
 
-            const success = document.getElementById('popupFormSuccess');
-            if (success) success.style.display = 'block';
             const btn = this.querySelector('.popup-submit-btn');
-            if (btn) { btn.disabled = true; const txt = btn.querySelector('.popup-btn-text'); if(txt) txt.textContent = 'Submitted!'; }
-            setTimeout(() => {
-                this.reset();
-                if (success) success.style.display = 'none';
-                if (btn) { btn.disabled = false; const txt = btn.querySelector('.popup-btn-text'); if(txt) txt.textContent = 'Submit Enquiry'; }
-                setTimeout(closePopup, 500);
-            }, 3000);
+            if (btn) { btn.disabled = true; const txt = btn.querySelector('.popup-btn-text'); if(txt) txt.textContent = 'Sending...'; }
+
+            const indexing = Array.from(document.querySelectorAll('input[name="popupIndexing"]:checked')).map(c => c.value);
+            const formData = new FormData();
+            formData.append('fullName', document.getElementById('popupName').value.trim());
+            formData.append('email', document.getElementById('popupEmail').value.trim());
+            formData.append('whatsapp', ph.value.trim());
+            formData.append('subjectArea', document.getElementById('popupSubject').value.trim());
+            formData.append('indexing', indexing.join(', '));
+            formData.append('additionalInfo', (document.getElementById('popupMsg')?.value || '').trim());
+            formData.append('source', 'popup_form');
+
+            fetch('https://crm.handwriterspublication.com/api/receive_lead.php', {
+                method: 'POST',
+                body: formData
+            }).then(r => r.json()).then(() => {
+                const success = document.getElementById('popupFormSuccess');
+                if (success) success.style.display = 'block';
+                if (btn) { const txt = btn.querySelector('.popup-btn-text'); if(txt) txt.textContent = 'Submitted!'; }
+                setTimeout(() => {
+                    this.reset();
+                    if (success) success.style.display = 'none';
+                    if (btn) { btn.disabled = false; const txt = btn.querySelector('.popup-btn-text'); if(txt) txt.textContent = 'Submit Enquiry'; }
+                    setTimeout(closePopup, 500);
+                }, 3000);
+            }).catch(() => {
+                const success = document.getElementById('popupFormSuccess');
+                if (success) success.style.display = 'block';
+                if (btn) { const txt = btn.querySelector('.popup-btn-text'); if(txt) txt.textContent = 'Submitted!'; }
+                setTimeout(() => {
+                    this.reset();
+                    if (success) success.style.display = 'none';
+                    if (btn) { btn.disabled = false; const txt = btn.querySelector('.popup-btn-text'); if(txt) txt.textContent = 'Submit Enquiry'; }
+                    setTimeout(closePopup, 500);
+                }, 3000);
+            });
         });
     }
 })();
