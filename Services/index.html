@@ -1,566 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-CZE8HPMNGC"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-CZE8HPMNGC');
-    </script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CZE8HPMNGC');</script>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Services – Scopus Sphere</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-dark: #282828;
-            --primary-mid:  #3c3c3c;
-            --header-bg:    #dcdcc8;
-            --accent-teal:  #a98e57;
-            --accent-light: #c9ad7a;
-            --body-bg:      #f0ead8;
-            --card-bg:      #faf7f2;
-            --text-dark:    #282828;
-            --text-muted:   #6b5d46;
-            --white:        #faf7f2;
-            --border:       #ccc8b4;
-        }
-
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--body-bg);
-            color: var(--text-dark);
-            line-height: 1.75;
-            overflow-x: hidden;
-        }
-
-        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; color: var(--primary-dark); line-height: 1.25; }
-        a { text-decoration: none; color: inherit; }
-
-        .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 0 15px; }
-
-        /* ── Header ── */
-        .top-banner a { color: white; font-weight: 700; text-decoration: underline; margin-left: 8px; }
-
-        header {
-            background: var(--header-bg);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 5%;
-            height: 70px;
-            position: sticky; top: 0; z-index: 1000;
-            box-shadow: 0 1px 0 rgba(169,142,87,0.4), 0 2px 14px rgba(100,70,20,0.1);
-            border-bottom: 1px solid rgba(169,142,87,0.28);
-        }
-
-        .logo { display: flex; align-items: center; gap: 10px; }
-        .logo-img { height: 55px; width: auto; object-fit: contain; transition: height 0.3s; mix-blend-mode: multiply; filter: brightness(1.02); }
-
-        .mobile-menu-btn { display: none; color: var(--primary-dark); font-size: 1.3rem; cursor: pointer; padding: 6px; }
-
-        nav ul { display: flex; list-style: none; gap: 2px; align-items: center; }
-        nav ul li a { color: rgba(44,28,10,0.68); padding: 8px 16px; border-radius: 3px; font-size: 0.875rem; font-weight: 500; letter-spacing: 0.2px; transition: color 0.2s, background 0.2s; }
-        nav ul li a:hover { color: var(--primary-dark); background: rgba(169,142,87,0.1); }
-        nav ul li a.active { color: var(--accent-teal); font-weight: 600; }
-        .nav-cta { background: transparent !important; color: var(--accent-teal) !important; padding: 7px 18px !important; border: 1px solid rgba(169,142,87,0.55) !important; border-radius: 3px !important; font-weight: 600 !important; margin-left: 6px; transition: all 0.2s !important; }
-        .nav-cta:hover { background: var(--accent-teal) !important; color: var(--white) !important; border-color: var(--accent-teal) !important; }
-
-        /* ── Page Hero ── */
-        .page-hero {
-            background:
-                linear-gradient(rgba(220,215,198,0.78), rgba(235,228,210,0.84)),
-                url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
-            padding: 100px 20px 88px;
-            text-align: center;
-            border-bottom: 1px solid rgba(169,142,87,0.25);
-            position: relative;
-            overflow: hidden;
-        }
-        .page-hero::before {
-            content: '';
-            position: absolute; inset: 0;
-            background: radial-gradient(ellipse at 60% 40%, rgba(169,142,87,0.1) 0%, transparent 65%);
-            pointer-events: none;
-        }
-        .page-hero-inner { position: relative; z-index: 1; }
-        .page-hero-eyebrow {
-            display: inline-flex; align-items: center; gap: 12px;
-            color: var(--accent-teal); font-size: 0.72rem; font-weight: 600;
-            letter-spacing: 3px; text-transform: uppercase; margin-bottom: 22px;
-        }
-        .page-hero-eyebrow::before, .page-hero-eyebrow::after {
-            content: ''; width: 30px; height: 1px;
-            background: var(--accent-teal); display: inline-block;
-        }
-        .page-hero h1 { font-size: 3rem; color: var(--primary-dark); margin-bottom: 16px; }
-        .page-hero p  { font-family: 'Crimson Pro', serif; font-size: 1.15rem; color: var(--text-muted); max-width: 560px; margin: 0 auto; line-height: 1.8; }
-
-        /* ── Section ── */
-        .section-ornament {
-            display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 14px;
-        }
-        .section-ornament span { font-size: 0.7rem; font-weight: 600; letter-spacing: 3.5px; text-transform: uppercase; color: var(--accent-teal); }
-        .section-ornament::before, .section-ornament::after { content: ''; width: 34px; height: 1px; background: var(--accent-teal); display: inline-block; }
-        .section-title { font-size: 2.3rem; text-align: center; margin-bottom: 10px; font-weight: 700; letter-spacing: -0.3px; color: var(--primary-dark); }
-        .section-title::after { content: ''; display: block; width: 40px; height: 2px; background: var(--accent-teal); margin: 12px auto 0; border-radius: 1px; }
-        .section-subtitle { text-align: center; color: var(--text-muted); max-width: 560px; margin: 0 auto 54px; font-family: 'Crimson Pro', serif; font-size: 1.08rem; line-height: 1.75; }
-
-        /* ── Services Detail ── */
-        .services-detail { padding: 90px 0; background: var(--card-bg); }
-        .service-item {
-            display: grid; grid-template-columns: 80px 1fr; gap: 30px;
-            background: var(--body-bg); border: 1px solid var(--border); border-radius: 6px;
-            padding: 36px; margin-bottom: 24px;
-            transition: box-shadow 0.3s, border-color 0.3s;
-        }
-        .service-item:hover { box-shadow: 0 8px 28px rgba(169,142,87,0.18); border-color: rgba(169,142,87,0.55); }
-        .service-item-icon { width: 68px; height: 68px; background: rgba(169,142,87,0.1); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 1.7rem; color: var(--accent-teal); flex-shrink: 0; }
-        .service-item-icon.alt { background: rgba(40,40,40,0.07); color: var(--primary-dark); }
-        .service-item-body h3 { font-size: 1.3rem; margin-bottom: 10px; color: var(--primary-dark); }
-        .service-item-body p { color: var(--text-muted); font-size: 0.93rem; margin-bottom: 14px; line-height: 1.72; }
-        .service-features { display: flex; flex-wrap: wrap; gap: 8px; }
-        .feature-tag { background: rgba(169,142,87,0.08); color: var(--accent-teal); padding: 4px 13px; border-radius: 2px; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.3px; border: 1px solid rgba(169,142,87,0.2); }
-
-        /* ── Logo name (matches main page) ── */
-        .logo-wrap { display: flex; flex-direction: row; align-items: center; gap: 12px; }
-        .logo-name { font-family: 'Playfair Display', serif; font-size: 1.55rem; font-weight: 700; letter-spacing: 0.5px; line-height: 1; white-space: nowrap; }
-        .logo-word1 { color: var(--primary-dark); }
-        .logo-word2 { color: var(--accent-teal); }
-
-        /* ── Process ── */
-        .process-section { padding: 90px 0; background: var(--body-bg); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-        .process-inner { display: grid; grid-template-columns: 1fr 380px; gap: 64px; align-items: start; }
-        .steps-list { max-width: 100%; }
-        .process-img-wrap { position: sticky; top: 96px; }
-        .process-img { width: 100%; border-radius: 4px; border: 1px solid var(--border); object-fit: cover; display: block; box-shadow: 0 8px 28px rgba(100,70,20,0.12); }
-        .step-row { display: flex; gap: 24px; margin-bottom: 28px; align-items: flex-start; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
-        .step-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-        .step-num { width: 50px; height: 50px; background: var(--accent-teal); border-radius: 2px; color: var(--white); font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; letter-spacing: 0.5px; }
-        .step-content h3 { font-size: 1.08rem; margin-bottom: 6px; color: var(--primary-dark); }
-        .step-content p { color: var(--text-muted); font-size: 0.91rem; line-height: 1.7; }
-
-        /* ── Pricing Overview ── */
-        .pricing-section { padding: 90px 0; background: var(--card-bg); }
-        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin-top: 20px; }
-        .pricing-card { background: var(--body-bg); padding: 40px 32px; text-align: center; transition: background 0.3s, box-shadow 0.3s; position: relative; }
-        .pricing-card:hover { background: var(--card-bg); box-shadow: inset 0 0 0 1px rgba(169,142,87,0.4); }
-        .pricing-card.featured { background: var(--card-bg); box-shadow: inset 0 0 0 2px var(--accent-teal); }
-        .featured-badge { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: var(--accent-teal); color: var(--white); padding: 3px 16px; border-radius: 2px; font-size: 0.72rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; white-space: nowrap; }
-        .pricing-card h3 { font-size: 1.25rem; margin-bottom: 10px; color: var(--primary-dark); }
-        .pricing-card .price { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 24px; font-family: 'Crimson Pro', serif; font-size: 1rem; }
-        .pricing-list { list-style: none; text-align: left; margin-bottom: 30px; }
-        .pricing-list li { padding: 9px 0; font-size: 0.88rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; color: var(--text-dark); }
-        .pricing-list li i { color: var(--accent-teal); font-size: 0.8rem; flex-shrink: 0; }
-
-        /* ── Buttons ── */
-        .btn-primary { background: var(--accent-teal); color: var(--white); padding: 13px 30px; border-radius: 2px; font-weight: 600; font-size: 0.8rem; letter-spacing: 1.2px; text-transform: uppercase; transition: background 0.25s, transform 0.2s, box-shadow 0.2s; display: inline-block; }
-        .btn-primary:hover { background: var(--accent-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(169,142,87,0.4); }
-        .btn-outline { background: transparent; color: var(--primary-dark); padding: 12px 30px; border-radius: 2px; border: 1px solid rgba(40,40,40,0.35); font-weight: 600; font-size: 0.8rem; letter-spacing: 1.2px; text-transform: uppercase; transition: all 0.25s; display: inline-block; }
-        .btn-outline:hover { border-color: var(--primary-dark); background: rgba(40,40,40,0.06); transform: translateY(-2px); }
-
-        /* ── Footer ── */
-        footer { background: #d4ccb8; color: #6b5d46; padding: 60px 0 0; border-top: 2px solid rgba(169,142,87,0.35); }
-        .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1.2fr; gap: 40px; padding-bottom: 50px; }
-        .footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-        .footer-logo-img { height: 48px; width: auto; object-fit: contain; mix-blend-mode: multiply; filter: brightness(1.02); opacity: 0.95; }
-        footer p { font-size: 0.9rem; margin-bottom: 8px; }
-        footer p i { color: var(--accent-teal); margin-right: 8px; }
-        .social-links { display: flex; gap: 10px; margin-top: 16px; }
-        .social-links a { width: 34px; height: 34px; background: rgba(169,142,87,0.1); border: 1px solid rgba(169,142,87,0.25); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #7a6a50; font-size: 0.8rem; transition: background 0.2s, color 0.2s; }
-        .social-links a:hover { background: var(--accent-teal); color: white; }
-        .footer-col h4 { font-size: 0.9rem; color: var(--primary-dark); margin-bottom: 16px; font-family: 'Inter', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; position: relative; padding-bottom: 10px; }
-        .footer-col h4::after { content: ''; position: absolute; left: 0; bottom: 0; width: 36px; height: 2px; background: var(--accent-teal); border-radius: 2px; }
-        .footer-col ul { list-style: none; }
-        .footer-col ul li { margin-bottom: 10px; }
-        .footer-col ul li a { color: #7a6a50; font-size: 0.88rem; transition: color 0.2s; }
-        .footer-col ul li a:hover { color: var(--accent-teal); }
-        .footer-bottom { background: rgba(169,142,87,0.12); border-top: 1px solid rgba(169,142,87,0.25); padding: 18px 0; text-align: center; }
-        .footer-bottom p { font-size: 0.85rem; margin: 0; color: #7a6a50; }
-
-        /* ── Reveal / Fade animations ── */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(32px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to   { opacity: 1; }
-        }
-
-        /* Hero entry */
-        .page-hero-eyebrow { animation: fadeUp 0.7s ease both; animation-delay: 0.1s; }
-        .page-hero h1      { animation: fadeUp 0.7s ease both; animation-delay: 0.25s; }
-        .page-hero p       { animation: fadeUp 0.7s ease both; animation-delay: 0.4s; }
-
-        /* Scroll reveal base */
-        .reveal {
-            opacity: 0;
-            transform: translateY(28px);
-            transition: opacity 0.65s ease, transform 0.65s ease;
-        }
-        .reveal.visible {
-            opacity: 1;
-            transform: none;
-        }
-
-        /* Stagger delays for grouped cards */
-        .service-item.reveal:nth-child(1) { transition-delay: 0s; }
-        .service-item.reveal:nth-child(2) { transition-delay: 0.08s; }
-        .service-item.reveal:nth-child(3) { transition-delay: 0.16s; }
-        .service-item.reveal:nth-child(4) { transition-delay: 0.24s; }
-        .service-item.reveal:nth-child(5) { transition-delay: 0.32s; }
-        .service-item.reveal:nth-child(6) { transition-delay: 0.40s; }
-
-        .step-row.reveal:nth-child(1) { transition-delay: 0s; }
-        .step-row.reveal:nth-child(2) { transition-delay: 0.1s; }
-        .step-row.reveal:nth-child(3) { transition-delay: 0.2s; }
-        .step-row.reveal:nth-child(4) { transition-delay: 0.3s; }
-        .step-row.reveal:nth-child(5) { transition-delay: 0.4s; }
-
-        .pricing-card.reveal:nth-child(1) { transition-delay: 0s; }
-        .pricing-card.reveal:nth-child(2) { transition-delay: 0.12s; }
-        .pricing-card.reveal:nth-child(3) { transition-delay: 0.24s; }
-
-        .footer-col.reveal:nth-child(1) { transition-delay: 0s; }
-        .footer-col.reveal:nth-child(2) { transition-delay: 0.08s; }
-        .footer-col.reveal:nth-child(3) { transition-delay: 0.16s; }
-        .footer-col.reveal:nth-child(4) { transition-delay: 0.24s; }
-
-        /* Header scroll shrink */
-        header.scrolled { height: 58px; }
-        header.scrolled .logo-img { height: 44px; }
-        header.scrolled .logo-name { font-size: 1.3rem; }
-        header { transition: height 0.35s; }
-        .logo-img { transition: height 0.35s; }
-        .logo-name { transition: font-size 0.35s; }
-
-        @media (max-width: 768px) {
-            nav { display: none; position: fixed; top: 70px; left: 0; right: 0; background: var(--header-bg); padding: 20px; border-top: 1px solid rgba(169,142,87,0.3); box-shadow: 0 8px 20px rgba(100,70,20,0.1); }
-            nav.open { display: block; }
-            nav ul { flex-direction: column; gap: 0; }
-            nav ul li a { display: block; padding: 12px 16px; color: rgba(44,28,10,0.75); }
-            .mobile-menu-btn { display: block; }
-            .logo-name { font-size: 1.25rem; }
-            .page-hero h1 { font-size: 2.2rem; }
-            .service-item { grid-template-columns: 1fr; }
-            .process-inner { grid-template-columns: 1fr; }
-            .process-img-wrap { display: none; }
-            .pricing-grid { grid-template-columns: 1fr; gap: 0; }
-            .footer-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
-        }
-        @media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } .logo-name { display: none; } }
-    </style>
+    <meta name="description" content="Comprehensive publication services including manuscript writing, journal selection, editing, submission & patent filing.">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-
     <header id="header">
-        <a href="../" class="logo">
-            <div class="logo-wrap">
-                <img src="../image1.png" alt="Scopus Sphere" class="logo-img">
-                <span class="logo-name"><span class="logo-word1">Scopus</span> <span class="logo-word2">Sphere</span></span>
-            </div>
-        </a>
+        <a href="../" class="logo-wrap"><img src="../image1.png" alt="Scopus Sphere" class="logo-img"><span class="logo-name"><span class="logo-word1">Scopus</span> <span class="logo-word2">Sphere</span></span></a>
         <div class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></div>
-        <nav id="mainNav">
-            <ul>
-                <li><a href="./" class="active">Services</a></li>
-                <li><a href="../About/">About</a></li>
-                <li><a href="../Contact/">Contact</a></li>
-                <li><a href="../Contact/" class="nav-cta">Get Published</a></li>
-            </ul>
-        </nav>
+        <nav id="mainNav"><ul><li><a href="../">Home</a></li><li><a href="./" class="active">Services</a></li><li><a href="../Contact/">Contact</a></li><li><a href="../Contact/" class="nav-cta">Get Started</a></li></ul></nav>
     </header>
 
     <div class="page-hero">
         <div class="page-hero-inner">
+            <p class="breadcrumb"><a href="../">Home</a> › Services</p>
             <div class="page-hero-eyebrow">Publication Solutions</div>
-            <h1>Our Services</h1>
+            <h1>Our <em>Services</em></h1>
             <p>Everything you need to take your research from manuscript to publication in top-indexed journals.</p>
         </div>
     </div>
 
-    <!-- Detailed Services -->
     <section class="services-detail">
         <div class="container">
-            <h2 class="section-title reveal">What We Do</h2>
+            <div class="section-ornament"><span>What We Do</span></div>
+            <h2 class="section-title reveal">End-to-End <em>Publication Support</em></h2>
             <p class="section-subtitle reveal">Each service is designed to maximise your manuscript's chances of acceptance</p>
 
-            <div class="service-item reveal">
-                <div class="service-item-icon"><i class="fas fa-pen-nib"></i></div>
-                <div class="service-item-body">
-                    <h3>Manuscript Writing & Structuring</h3>
-                    <p>Our academic writers with domain expertise craft original, publication-ready manuscripts from your research data or thesis. We ensure correct formatting, logical structure, and adherence to target journal guidelines.</p>
-                    <div class="service-features">
-                        <span class="feature-tag">Original Research Articles</span>
-                        <span class="feature-tag">Review Articles</span>
-                        <span class="feature-tag">Case Studies</span>
-                        <span class="feature-tag">Thesis-to-Article Conversion</span>
-                        <span class="feature-tag">Conference Papers</span>
-                    </div>
-                </div>
-            </div>
+            <div class="service-item reveal"><div class="service-item-icon"><i class="fas fa-pen-nib"></i></div><div class="service-item-body"><h3>Manuscript Writing & Structuring</h3><p>Our academic writers with domain expertise craft original, publication-ready manuscripts from your research data or thesis. We ensure correct formatting, logical structure, and adherence to target journal guidelines.</p><div class="service-features"><span class="feature-tag">Original Articles</span><span class="feature-tag">Review Articles</span><span class="feature-tag">Case Studies</span><span class="feature-tag">Thesis Conversion</span><span class="feature-tag">Conference Papers</span></div></div></div>
 
-            <div class="service-item reveal">
-                <div class="service-item-icon alt"><i class="fas fa-search-plus"></i></div>
-                <div class="service-item-body">
-                    <h3>Editing & Proofreading</h3>
-                    <p>Expert academic editing focused on grammar, clarity, academic tone, structural coherence, and plagiarism reduction. We also offer language polishing for non-native English speakers.</p>
-                    <div class="service-features">
-                        <span class="feature-tag">Grammar & Syntax</span>
-                        <span class="feature-tag">Plagiarism Check</span>
-                        <span class="feature-tag">Language Polishing</span>
-                        <span class="feature-tag">Structural Review</span>
-                    </div>
-                </div>
-            </div>
+            <div class="service-item reveal"><div class="service-item-icon alt"><i class="fas fa-search-plus"></i></div><div class="service-item-body"><h3>Editing & Proofreading</h3><p>Expert academic editing focused on grammar, clarity, academic tone, structural coherence, and plagiarism reduction. Language polishing for non-native English speakers.</p><div class="service-features"><span class="feature-tag">Grammar & Syntax</span><span class="feature-tag">Plagiarism Check</span><span class="feature-tag">Language Polishing</span><span class="feature-tag">Structural Review</span></div></div></div>
 
-            <div class="service-item reveal">
-                <div class="service-item-icon"><i class="fas fa-list-alt"></i></div>
-                <div class="service-item-body">
-                    <h3>Journal Selection & Shortlisting</h3>
-                    <p>We analyse your manuscript's scope, methodology, and target audience to compile a curated list of the best-fit Scopus, WoS, PubMed, or open-access journals. You choose — we proceed.</p>
-                    <div class="service-features">
-                        <span class="feature-tag">Scopus Journals</span>
-                        <span class="feature-tag">Web of Science</span>
-                        <span class="feature-tag">Q1 / Q2 Journals</span>
-                        <span class="feature-tag">Open Access</span>
-                        <span class="feature-tag">ABDC Listed</span>
-                    </div>
-                </div>
-            </div>
+            <div class="service-item reveal"><div class="service-item-icon"><i class="fas fa-list-alt"></i></div><div class="service-item-body"><h3>Journal Selection & Shortlisting</h3><p>We analyse your manuscript's scope, methodology, and target audience to compile a curated list of the best-fit Scopus, WoS, PubMed, or open-access journals.</p><div class="service-features"><span class="feature-tag">Scopus Journals</span><span class="feature-tag">Web of Science</span><span class="feature-tag">Q1/Q2 Journals</span><span class="feature-tag">Open Access</span><span class="feature-tag">ABDC Listed</span></div></div></div>
 
-            <div class="service-item reveal">
-                <div class="service-item-icon alt"><i class="fas fa-paper-plane"></i></div>
-                <div class="service-item-body">
-                    <h3>Submission Management</h3>
-                    <p>We handle the entire submission workflow — formatting to journal standards, crafting cover letters, uploading supplementary materials, and tracking submission status until initial decision.</p>
-                    <div class="service-features">
-                        <span class="feature-tag">Formatting</span>
-                        <span class="feature-tag">Cover Letter</span>
-                        <span class="feature-tag">Online Submission</span>
-                        <span class="feature-tag">Status Tracking</span>
-                    </div>
-                </div>
-            </div>
+            <div class="service-item reveal"><div class="service-item-icon alt"><i class="fas fa-paper-plane"></i></div><div class="service-item-body"><h3>Submission Management</h3><p>We handle the entire submission workflow — formatting to journal standards, crafting cover letters, uploading supplementary materials, and tracking submission status.</p><div class="service-features"><span class="feature-tag">Formatting</span><span class="feature-tag">Cover Letter</span><span class="feature-tag">Online Submission</span><span class="feature-tag">Status Tracking</span></div></div></div>
 
-            <div class="service-item reveal">
-                <div class="service-item-icon"><i class="fas fa-comments"></i></div>
-                <div class="service-item-body">
-                    <h3>Peer Review & Revision Handling</h3>
-                    <p>Reviewer comments can be intimidating. Our experts craft detailed, point-by-point response letters and implement all required manuscript revisions — at no extra charge until acceptance.</p>
-                    <div class="service-features">
-                        <span class="feature-tag">Major Revisions</span>
-                        <span class="feature-tag">Minor Revisions</span>
-                        <span class="feature-tag">Response Letter</span>
-                        <span class="feature-tag">Resubmission Support</span>
-                    </div>
-                </div>
-            </div>
+            <div class="service-item reveal"><div class="service-item-icon"><i class="fas fa-comments"></i></div><div class="service-item-body"><h3>Peer Review & Revision Handling</h3><p>Our experts craft detailed, point-by-point response letters and implement all manuscript revisions — at no extra charge until acceptance.</p><div class="service-features"><span class="feature-tag">Major Revisions</span><span class="feature-tag">Minor Revisions</span><span class="feature-tag">Response Letter</span><span class="feature-tag">Resubmission</span></div></div></div>
 
-            <div class="service-item reveal">
-                <div class="service-item-icon alt"><i class="fas fa-certificate"></i></div>
-                <div class="service-item-body">
-                    <h3>Patent Filing Assistance</h3>
-                    <p>From novelty searches and technical documentation to application drafting and regulatory compliance — we support inventors through the entire patent filing process in India and internationally.</p>
-                    <div class="service-features">
-                        <span class="feature-tag">Novelty Search</span>
-                        <span class="feature-tag">Indian Patents</span>
-                        <span class="feature-tag">International PCT</span>
-                        <span class="feature-tag">Technical Documentation</span>
-                    </div>
-                </div>
-            </div>
+            <div class="service-item reveal"><div class="service-item-icon alt"><i class="fas fa-certificate"></i></div><div class="service-item-body"><h3>Patent Filing Assistance</h3><p>From novelty searches and technical documentation to application drafting and regulatory compliance — we support the entire patent filing process.</p><div class="service-features"><span class="feature-tag">Novelty Search</span><span class="feature-tag">Indian Patents</span><span class="feature-tag">International PCT</span><span class="feature-tag">Technical Docs</span></div></div></div>
         </div>
     </section>
 
-    <!-- Process Section -->
-    <section class="process-section" id="process">
-        <div class="container">
-            <h2 class="section-title reveal">How It Works</h2>
-            <p class="section-subtitle reveal">Our simple, transparent 5-step publication journey</p>
-            <div class="process-inner">
-            <div class="steps-list">
-                <div class="step-row reveal">
-                    <div class="step-num">01</div>
-                    <div class="step-content">
-                        <h3>Free Initial Consultation</h3>
-                        <p>Reach out via email or WhatsApp. We understand your research topic, current manuscript status, indexing goals, and budget to recommend the ideal service package.</p>
-                    </div>
-                </div>
-                <div class="step-row reveal">
-                    <div class="step-num">02</div>
-                    <div class="step-content">
-                        <h3>Manuscript Preparation</h3>
-                        <p>Our writers/editors craft or refine your manuscript — ensuring coherent structure, original language, plagiarism-free content, and compliance with chosen journal guidelines.</p>
-                    </div>
-                </div>
-                <div class="step-row reveal">
-                    <div class="step-num">03</div>
-                    <div class="step-content">
-                        <h3>Journal Shortlisting & Your Approval</h3>
-                        <p>We present 3–5 curated journals matching your research scope and indexing requirements. You review and approve the target journal before submission.</p>
-                    </div>
-                </div>
-                <div class="step-row reveal">
-                    <div class="step-num">04</div>
-                    <div class="step-content">
-                        <h3>Submission & Review Management</h3>
-                        <p>We format and submit your paper, then manage all communication with the journal. Reviewer responses are handled by our experts with precision and clarity.</p>
-                    </div>
-                </div>
-                <div class="step-row reveal">
-                    <div class="step-num">05</div>
-                    <div class="step-content">
-                        <h3>Acceptance & APC Payment</h3>
-                        <p>Upon acceptance, we notify you and coordinate the APC payment directly with the journal (no commission added). We then share the published DOI and proof.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="process-img-wrap reveal">
-                <img src="../image2.png" alt="Our publication process" class="process-img">
-            </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Pricing Overview -->
     <section class="pricing-section">
         <div class="container">
-            <h2 class="section-title reveal">Service Packages</h2>
+            <div class="section-ornament"><span>Packages</span></div>
+            <h2 class="section-title reveal">Service <em>Packages</em></h2>
             <p class="section-subtitle reveal">Flexible packages to suit every researcher's needs and budget</p>
             <div class="pricing-grid">
-                <div class="pricing-card reveal">
-                    <h3>Editing & Submission</h3>
-                    <p class="price">For ready manuscripts that need polishing</p>
-                    <ul class="pricing-list">
-                        <li><i class="fas fa-check"></i> Grammar & Language Editing</li>
-                        <li><i class="fas fa-check"></i> Plagiarism Check & Report</li>
-                        <li><i class="fas fa-check"></i> Journal Formatting</li>
-                        <li><i class="fas fa-check"></i> Submission Management</li>
-                        <li><i class="fas fa-check"></i> Cover Letter Drafting</li>
-                        <li><i class="fas fa-check"></i> Email Communication Support</li>
-                    </ul>
-                    <a href="../Contact/" class="btn-outline">Enquire Now</a>
-                </div>
-                <div class="pricing-card featured reveal">
-                    <span class="featured-badge">Most Popular</span>
-                    <h3>Full Publication Support</h3>
-                    <p class="price">End-to-end publication assistance</p>
-                    <ul class="pricing-list">
-                        <li><i class="fas fa-check"></i> Everything in Editing & Submission</li>
-                        <li><i class="fas fa-check"></i> Journal Shortlisting (3–5 journals)</li>
-                        <li><i class="fas fa-check"></i> Reviewer Response Handling</li>
-                        <li><i class="fas fa-check"></i> Unlimited Revisions Until Accepted</li>
-                        <li><i class="fas fa-check"></i> Milestone Progress Updates</li>
-                        <li><i class="fas fa-check"></i> 100% Refund Guarantee</li>
-                    </ul>
-                    <a href="../Contact/" class="btn-primary">Enquire Now</a>
-                </div>
-                <div class="pricing-card reveal">
-                    <h3>Manuscript Writing</h3>
-                    <p class="price">From data/ideas to a complete article</p>
-                    <ul class="pricing-list">
-                        <li><i class="fas fa-check"></i> Full Article Writing</li>
-                        <li><i class="fas fa-check"></i> Literature Review</li>
-                        <li><i class="fas fa-check"></i> Statistical Analysis Support</li>
-                        <li><i class="fas fa-check"></i> All Full Publication Support</li>
-                        <li><i class="fas fa-check"></i> PhD / UGC Compliance</li>
-                        <li><i class="fas fa-check"></i> Dedicated Account Manager</li>
-                    </ul>
-                    <a href="../Contact/" class="btn-outline">Enquire Now</a>
-                </div>
+                <div class="pricing-card reveal"><h3>Editing & Submission</h3><p class="price">For ready manuscripts that need polishing</p><ul class="pricing-list"><li><i class="fas fa-check"></i> Grammar & Language Editing</li><li><i class="fas fa-check"></i> Plagiarism Check & Report</li><li><i class="fas fa-check"></i> Journal Formatting</li><li><i class="fas fa-check"></i> Submission Management</li><li><i class="fas fa-check"></i> Cover Letter Drafting</li></ul><a href="../Contact/" class="btn-outline">Enquire Now</a></div>
+                <div class="pricing-card featured reveal"><span class="featured-badge">Most Popular</span><h3>Full Publication</h3><p class="price">End-to-end publication assistance</p><ul class="pricing-list"><li><i class="fas fa-check"></i> Everything in Editing & Submission</li><li><i class="fas fa-check"></i> Journal Shortlisting (3–5 journals)</li><li><i class="fas fa-check"></i> Reviewer Response Handling</li><li><i class="fas fa-check"></i> Unlimited Revisions</li><li><i class="fas fa-check"></i> 100% Refund Guarantee</li></ul><a href="../Contact/" class="btn-primary">Enquire Now</a></div>
+                <div class="pricing-card reveal"><h3>Manuscript Writing</h3><p class="price">From data/ideas to a complete article</p><ul class="pricing-list"><li><i class="fas fa-check"></i> Full Article Writing</li><li><i class="fas fa-check"></i> Literature Review</li><li><i class="fas fa-check"></i> Statistical Analysis</li><li><i class="fas fa-check"></i> All Full Publication Support</li><li><i class="fas fa-check"></i> Dedicated Account Manager</li></ul><a href="../Contact/" class="btn-outline">Enquire Now</a></div>
             </div>
         </div>
     </section>
 
-    <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col reveal">
-                    <div class="footer-logo">
-                        <img src="../image1.png" alt="Scopus Sphere" style="height:48px;width:auto;object-fit:contain;mix-blend-mode:multiply;filter:brightness(1.02);opacity:0.95;">
-                        <span style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;"><span style="color:var(--primary-dark);">Scopus</span> <span style="color:var(--accent-teal);">Sphere</span></span>
-                    </div>
-                    <p>Your trusted partner for research publication and academic excellence.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-                <div class="footer-col reveal">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="./">Services</a></li>
-                        <li><a href="../About/">About Us</a></li>
-                        <li><a href="../Contact/">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col reveal">
-                    <h4>Services</h4>
-                    <ul>
-                        <li><a href="./">Manuscript Writing</a></li>
-                        <li><a href="./">Editing & Proofreading</a></li>
-                        <li><a href="./">Journal Selection</a></li>
-                        <li><a href="./">Patent Filing</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col reveal">
-                    <h4>Contact Us</h4>
-                    <p><i class="fas fa-envelope"></i> info@scopussphere.com</p>
-                    <p><i class="fas fa-phone"></i> +91 92112 93696</p>
-                    <p><i class="fab fa-whatsapp"></i> <a href="https://wa.me/919211293696" style="color:inherit;">Chat on WhatsApp</a></p>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Scopus Sphere. All rights reserved.</p>
-        </div>
-    </footer>
+    <section class="cta-section"><div class="cta-inner"><div class="section-ornament"><span>Get Started</span></div><h2>Ready to Publish Your Research?</h2><p>Get in touch today for a free consultation and let us guide you to publication.</p><a href="../Contact/" class="btn-primary btn-large">Contact Us Today <i class="fas fa-arrow-right"></i></a></div></section>
 
-    <script>
-        // Mobile nav
-        const btn = document.getElementById('mobileMenuBtn');
-        const nav = document.getElementById('mainNav');
-        if (btn && nav) {
-            btn.addEventListener('click', () => {
-                nav.classList.toggle('open');
-                const icon = btn.querySelector('i');
-                icon.classList.toggle('fa-bars');
-                icon.classList.toggle('fa-times');
-            });
-        }
-
-        // Header shrink on scroll
-        const hdr = document.getElementById('header');
-        if (hdr) {
-            window.addEventListener('scroll', () => {
-                hdr.classList.toggle('scrolled', window.scrollY > 60);
-            });
-        }
-
-        // Scroll reveal
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    revealObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
-        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-    </script>
+    <footer><div class="container"><div class="footer-grid"><div class="footer-col"><div class="footer-logo"><img src="../image1.png" alt="Scopus Sphere" class="footer-logo-img"></div><p class="footer-desc">Your trusted partner for research publication and academic excellence since 2020.</p><div class="social-links"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-linkedin-in"></i></a><a href="#"><i class="fab fa-instagram"></i></a></div></div><div class="footer-col"><h4>Quick Links</h4><ul><li><a href="./">Services</a></li><li><a href="../About/">About Us</a></li><li><a href="../Contact/">Contact</a></li></ul></div><div class="footer-col"><h4>Services</h4><ul><li><a href="./">Manuscript Writing</a></li><li><a href="./">Editing &amp; Proofreading</a></li><li><a href="./">Journal Selection</a></li><li><a href="./">Patent Filing</a></li></ul></div><div class="footer-col"><h4>Contact Us</h4><p><i class="fas fa-envelope"></i> info@scopussphere.com</p><p><i class="fas fa-phone"></i> +91 92112 93696</p><p><i class="fab fa-whatsapp"></i> <a href="https://wa.me/919211293696" style="color:inherit;">Chat on WhatsApp</a></p></div></div></div><div class="footer-bottom"><p>&copy; 2026 Scopus Sphere. All rights reserved.</p></div></footer>
+    <a href="https://wa.me/919211293696?text=Hello" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    <script src="../script.js"></script>
 </body>
 </html>
