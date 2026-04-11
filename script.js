@@ -154,11 +154,42 @@ if (ctaParticles) {
     }
 }
 
+// ---------- WhatsApp Prefix Lock ----------
+function bindWhatsappLock(wrap) {
+    if (!wrap) return;
+    const badge = wrap.querySelector('.wa-badge');
+    const hiddenPrefix = wrap.querySelector('input[type="hidden"]');
+    const input = wrap.querySelector('input[type="tel"]');
+
+    input.addEventListener('input', (e) => {
+        const val = input.value;
+        const match = val.match(/^(\+\d{1,4})[\s\-]+(.*)/);
+        if (match && !hiddenPrefix.value) {
+            hiddenPrefix.value = match[1];
+            badge.textContent = match[1];
+            badge.style.display = 'inline-block';
+            input.value = match[2];
+            input.placeholder = 'Phone number';
+        }
+    });
+
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && input.value === '' && hiddenPrefix.value) {
+            input.value = hiddenPrefix.value + ' ';
+            hiddenPrefix.value = '';
+            badge.style.display = 'none';
+            badge.textContent = '';
+            input.placeholder = 'e.g. +91 9876543210 *';
+            e.preventDefault();
+        }
+    });
+}
+
 // ---------- CTA Contact Form ----------
 const ctaForm = document.getElementById('ctaContactForm');
 if (ctaForm) {
-    const phoneInput = document.getElementById('ctaPhone');
-    if (phoneInput) phoneInput.addEventListener('input', function () { this.value = this.value.replace(/\D/g, '').slice(0, 10); });
+    const waWrap = document.getElementById('ctaPhone')?.closest('.wa-input-wrap');
+    if (waWrap) bindWhatsappLock(waWrap);
 
     const ctaMsg = document.getElementById('ctaMessage');
     const ctaWC = document.getElementById('ctaWordCount');
@@ -191,9 +222,10 @@ if (ctaForm) {
 
         const indexing = Array.from(document.querySelectorAll('input[name="ctaIndexing"]:checked')).map(c => c.value);
         const formData = new FormData();
+        const prefixCta = document.getElementById('wa_prefix_cta') ? document.getElementById('wa_prefix_cta').value : '';
         formData.append('name', name.value.trim());
         formData.append('email', email.value.trim());
-        formData.append('whatsapp', phone.value.trim());
+        formData.append('whatsapp', prefixCta + phone.value.trim());
         formData.append('subject', subject.value.trim());
         formData.append('indexing', indexing.join(', '));
         formData.append('message', (document.getElementById('ctaMessage')?.value || '').trim());
@@ -302,15 +334,19 @@ if (contactForm) {
             else { wordCount.style.color = ''; }
         });
     }
-    const whatsappInput = document.getElementById('whatsapp');
-    if (whatsappInput) { whatsappInput.addEventListener('input', function () { this.value = this.value.replace(/\D/g, '').slice(0, 10); }); }
+    
+    const waWrap = document.getElementById('whatsapp')?.closest('.wa-input-wrap');
+    if (waWrap) bindWhatsappLock(waWrap);
+
     contactForm.addEventListener('submit', function (e) {
         e.preventDefault();
         const fields = ['fullName', 'email', 'whatsapp', 'subjectArea'].map(id => document.getElementById(id));
         let isValid = true;
         fields.forEach(f => { if (f && !f.value.trim()) { f.style.borderColor = '#EF4444'; isValid = false; } else if (f) { f.style.borderColor = ''; } });
         const wp = document.getElementById('whatsapp');
-        if (wp && wp.value.length !== 10) { wp.style.borderColor = '#EF4444'; isValid = false; }
+        const prefix = document.getElementById('wa_prefix_contact') ? document.getElementById('wa_prefix_contact').value : '';
+        const fullWa = prefix + (wp ? wp.value.trim() : '');
+        if (wp && fullWa.replace(/\D/g, '').length < 10) { wp.style.borderColor = '#EF4444'; isValid = false; }
         if (!isValid) return;
 
         const btn = this.querySelector('.btn-submit');
@@ -318,9 +354,10 @@ if (contactForm) {
 
         const indexing = Array.from(document.querySelectorAll('input[name="indexing"]:checked')).map(c => c.value);
         const formData = new FormData();
+        const prefixContact = document.getElementById('wa_prefix_contact') ? document.getElementById('wa_prefix_contact').value : '';
         formData.append('name', document.getElementById('fullName').value.trim());
         formData.append('email', document.getElementById('email').value.trim());
-        formData.append('whatsapp', wp.value.trim());
+        formData.append('whatsapp', prefixContact + wp.value.trim());
         formData.append('subject', document.getElementById('subjectArea').value.trim());
         formData.append('indexing', indexing.join(', '));
         formData.append('message', (document.getElementById('additionalInfo')?.value || '').trim());
@@ -403,8 +440,8 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     // Popup form handler
     const popupForm = document.getElementById('popupForm');
     if (popupForm) {
-        const phoneInput = document.getElementById('popupPhone');
-        if (phoneInput) phoneInput.addEventListener('input', function () { this.value = this.value.replace(/\D/g, '').slice(0, 10); });
+        const phWrap = document.getElementById('popupPhone')?.closest('.wa-input-wrap');
+        if (phWrap) bindWhatsappLock(phWrap);
 
         popupForm.addEventListener('submit', function (e) {
             e.preventDefault();
@@ -415,7 +452,9 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
                 else if (f) { f.style.borderColor = ''; }
             });
             const ph = document.getElementById('popupPhone');
-            if (ph && ph.value.length !== 10) { ph.style.borderColor = '#EF4444'; valid = false; }
+            const prefix = document.getElementById('wa_prefix_popup') ? document.getElementById('wa_prefix_popup').value : '';
+            const fullWa = prefix + (ph ? ph.value.trim() : '');
+            if (ph && fullWa.replace(/\D/g, '').length < 10) { ph.style.borderColor = '#EF4444'; valid = false; }
             if (!valid) return;
 
             const btn = this.querySelector('.popup-submit-btn');
@@ -423,9 +462,10 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 
             const indexing = Array.from(document.querySelectorAll('input[name="popupIndexing"]:checked')).map(c => c.value);
             const formData = new FormData();
+            const prefixPopup = document.getElementById('wa_prefix_popup') ? document.getElementById('wa_prefix_popup').value : '';
             formData.append('name', document.getElementById('popupName').value.trim());
             formData.append('email', document.getElementById('popupEmail').value.trim());
-            formData.append('whatsapp', ph.value.trim());
+            formData.append('whatsapp', prefixPopup + ph.value.trim());
             formData.append('subject', document.getElementById('popupSubject').value.trim());
             formData.append('indexing', indexing.join(', '));
             formData.append('message', (document.getElementById('popupMsg')?.value || '').trim());

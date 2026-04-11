@@ -934,3 +934,76 @@ footer p i{color:var(--gold-light);margin-right:8px;width:16px}
     .popup-container{animation:none}
     .reveal{opacity:1;transform:none}
 }
+
+/* WhatsApp Country Code Prefix Input Wraps */
+.wa-input-wrap {
+  display: flex;
+  align-items: center;
+  background: var(--white);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius);
+  transition: all .3s;
+  overflow: hidden;
+  width: 100%;
+}
+.wa-input-wrap:focus-within {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(184,134,11,0.08);
+}
+.wa-input-wrap .wa-badge {
+  display: none;
+  background: rgba(184,134,11,0.12);
+  color: var(--gold);
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin-left: 12px;
+  white-space: nowrap;
+  user-select: none;
+}
+.wa-input-wrap input[type="tel"] {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  flex: 1;
+  min-width: 0;
+  outline: none;
+  margin: 0;
+  width: 100%;
+  padding: 14px 18px;
+}
+
+/* Glass Form version (for CTA) */
+.glass-form-group .wa-input-wrap {
+  border: 1.5px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  background: rgba(255,255,255,0.06);
+}
+.glass-form-group .wa-input-wrap:focus-within {
+  border-color: var(--gold);
+  background: rgba(255,255,255,0.1);
+  box-shadow: 0 0 20px rgba(184,134,11,0.15);
+}
+.glass-form-group .wa-input-wrap input[type="tel"] {
+  color: var(--white);
+}
+
+/* Popup Form version */
+.popup-input-group .wa-input-wrap {
+  border: 1.5px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  background: rgba(255,255,255,0.04);
+}
+.popup-input-group .wa-input-wrap:focus-within {
+  border-color: rgba(184,134,11,0.5);
+  background: rgba(255,255,255,0.07);
+  box-shadow: 0 0 24px rgba(184,134,11,0.1), inset 0 0 0 1px rgba(184,134,11,0.08);
+}
+.popup-input-group .wa-input-wrap input[type="tel"] {
+  color: var(--white);
+  padding: 13px 16px 13px 0 !important;
+}
+.popup-input-group .wa-input-wrap .wa-badge {
+  margin-left: 42px;
+}

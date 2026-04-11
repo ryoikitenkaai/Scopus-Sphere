@@ -450,7 +450,11 @@
                             </div>
                             <div class="glass-form-row">
                                 <div class="glass-form-group">
-                                    <input type="tel" id="ctaPhone" placeholder="Enter your 10-digit WhatsApp number *" maxlength="10" required>
+                                    <div class="wa-input-wrap">
+                                        <span class="wa-badge"></span>
+                                        <input type="hidden" name="wa_prefix_cta" id="wa_prefix_cta" value="">
+                                        <input type="tel" id="ctaPhone" placeholder="10-digit WhatsApp number (e.g. +91) *" maxlength="15" required pattern="[\d\s\+\-]*">
+                                    </div>
                                     <div class="input-glow"></div>
                                 </div>
                                 <div class="glass-form-group">
@@ -556,7 +560,14 @@
                                 <div class="popup-input-group"><i class="fas fa-envelope"></i><input type="email" id="popupEmail" placeholder="Email Address *" required></div>
                             </div>
                             <div class="popup-form-row">
-                                <div class="popup-input-group"><i class="fas fa-phone"></i><input type="tel" id="popupPhone" placeholder="Enter your 10-digit WhatsApp number *" maxlength="10" required></div>
+                                <div class="popup-input-group">
+                                    <i class="fas fa-phone"></i>
+                                    <div class="wa-input-wrap">
+                                        <span class="wa-badge"></span>
+                                        <input type="hidden" name="wa_prefix_popup" id="wa_prefix_popup" value="">
+                                        <input type="tel" id="popupPhone" placeholder="Enter WhatsApp with code (e.g. +91) *" maxlength="15" required pattern="[\d\s\+\-]*">
+                                    </div>
+                                </div>
                                 <div class="popup-input-group"><i class="fas fa-book"></i><input type="text" id="popupSubject" placeholder="Enter your subject area *" required></div>
                             </div>
                             <div style="margin-bottom:12px;">
