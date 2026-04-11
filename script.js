@@ -200,7 +200,7 @@ if (ctaForm) {
         formData.append('source', 'homepage_cta');
         formData.append('_api_key', 'hwp_lp_8f3a2b9e1c7d4f06a5e0b2c8d3f1e7a9');
 
-        fetch('https://crm.handwriterspublication.com/api/receive_lead.php', {
+        fetch('https://xcrm.handwriterspublication.com/api/webhook/lead', {
             method: 'POST',
             body: formData
         }).then(r => r.json()).then(data => {
@@ -327,7 +327,7 @@ if (contactForm) {
         formData.append('source', 'contact_page');
         formData.append('_api_key', 'hwp_lp_8f3a2b9e1c7d4f06a5e0b2c8d3f1e7a9');
 
-        fetch('https://crm.handwriterspublication.com/api/receive_lead.php', {
+        fetch('https://xcrm.handwriterspublication.com/api/webhook/lead', {
             method: 'POST',
             body: formData
         }).then(r => r.json()).then(data => {
@@ -432,7 +432,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
             formData.append('source', 'popup_form');
             formData.append('_api_key', 'hwp_lp_8f3a2b9e1c7d4f06a5e0b2c8d3f1e7a9');
 
-            fetch('https://crm.handwriterspublication.com/api/receive_lead.php', {
+            fetch('https://xcrm.handwriterspublication.com/api/webhook/lead', {
                 method: 'POST',
                 body: formData
             }).then(r => r.json()).then(data => {
