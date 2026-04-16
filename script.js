@@ -157,9 +157,15 @@ if (ctaParticles) {
 // ---------- WhatsApp Prefix Lock ----------
 function bindWhatsappLock(wrap) {
     if (!wrap) return;
+    const input = wrap.querySelector('input[type="tel"]');
+    if (!input) return;
+
     const badge = wrap.querySelector('.wa-badge');
     const hiddenPrefix = wrap.querySelector('input[type="hidden"]');
-    const input = wrap.querySelector('input[type="tel"]');
+
+    // Current Scopus forms no longer include prefix badge/hidden fields.
+    // Keep this helper as a safe no-op unless legacy fields exist.
+    if (!badge || !hiddenPrefix) return;
 
     input.addEventListener('input', (e) => {
         const val = input.value;
@@ -182,6 +188,99 @@ function bindWhatsappLock(wrap) {
             input.placeholder = 'e.g. +91 9876543210 *';
             e.preventDefault();
         }
+    });
+}
+
+// ---------- Lead Storage (CRM Webhook Paused) ----------
+const LOCAL_LEADS_STORAGE_KEY = 'scopus_sphere_local_leads_v1';
+const LOCAL_LEAD_RETENTION_DAYS = 90;
+
+// Legacy webhook config retained for quick rollback.
+// const LEAD_ENDPOINT = 'https://xcrm.handwriterspublication.com/api/webhook/lead';
+// const LANDING_API_KEY = 'REPLACE_WITH_YOUR_LANDING_API_KEY';
+
+function normalizeWhatsappNumber(value) {
+    return String(value || '').trim().replace(/[()\-\s]/g, '');
+}
+
+function isLeadWithinRetention(lead) {
+    if (!lead || typeof lead !== 'object') return false;
+    if (!lead.submitted_at) return true;
+
+    const submittedMs = Date.parse(lead.submitted_at);
+    if (Number.isNaN(submittedMs)) return true;
+
+    const retentionMs = LOCAL_LEAD_RETENTION_DAYS * 24 * 60 * 60 * 1000;
+    return Date.now() - submittedMs <= retentionMs;
+}
+
+function readStoredLeads() {
+    try {
+        const raw = window.localStorage.getItem(LOCAL_LEADS_STORAGE_KEY);
+        if (!raw) return [];
+
+        const parsed = JSON.parse(raw);
+        const leads = Array.isArray(parsed) ? parsed.filter(isLeadWithinRetention) : [];
+
+        if (Array.isArray(parsed) && leads.length !== parsed.length) {
+            window.localStorage.setItem(LOCAL_LEADS_STORAGE_KEY, JSON.stringify(leads));
+        }
+
+        return leads;
+    } catch (_err) {
+        return [];
+    }
+}
+
+function saveLeadLocally(leadRecord) {
+    if (!window.localStorage) {
+        throw new Error('Local storage is not available in this browser.');
+    }
+
+    const existing = readStoredLeads();
+    const updated = [leadRecord, ...existing].slice(0, 5000);
+
+    try {
+        window.localStorage.setItem(LOCAL_LEADS_STORAGE_KEY, JSON.stringify(updated));
+    } catch (_err) {
+        throw new Error('Could not save lead locally. Please clear browser storage and try again.');
+    }
+}
+
+function submitLeadFormData(formData, sourceForm) {
+    const leadRecord = {
+        id: `lead_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+        name: String(formData.get('name') || '').trim(),
+        email: String(formData.get('email') || '').trim(),
+        whatsapp: normalizeWhatsappNumber(formData.get('whatsapp') || ''),
+        subject: String(formData.get('subject') || '').trim(),
+        indexing: String(formData.get('indexing') || '').trim(),
+        message: String(formData.get('message') || '').trim(),
+        source_form: sourceForm || String(formData.get('source') || 'lead-form'),
+        source_page: window.location.pathname || '/',
+        submitted_at: new Date().toISOString()
+    };
+
+    try {
+        saveLeadLocally(leadRecord);
+    } catch (err) {
+        return Promise.reject(err instanceof Error ? err : new Error('Could not save lead locally.'));
+    }
+
+    /*
+    // Previous webhook flow (kept for future re-enable):
+    // formData.set('_api_key', LANDING_API_KEY);
+    // return fetch(LEAD_ENDPOINT, {
+    //     method: 'POST',
+    //     body: formData
+    // }).then((r) => r.json());
+    */
+
+    return Promise.resolve({
+        success: true,
+        message: 'Lead saved locally.',
+        storage: 'local',
+        lead: leadRecord
     });
 }
 
@@ -214,7 +313,8 @@ if (ctaForm) {
             if (f && !f.value.trim()) { f.style.borderColor = '#EF4444'; valid = false; } 
             else if (f) { f.style.borderColor = ''; }
         });
-        if (phone && phone.value.length !== 10) { phone.style.borderColor = '#EF4444'; valid = false; }
+        const ctaPhoneDigits = (phone ? phone.value : '').replace(/\D/g, '');
+        if (phone && ctaPhoneDigits.length < 10) { phone.style.borderColor = '#EF4444'; valid = false; }
         if (!valid) return;
 
         const btn = this.querySelector('.glass-submit-btn');
@@ -230,12 +330,8 @@ if (ctaForm) {
         formData.append('indexing', indexing.join(', '));
         formData.append('message', (document.getElementById('ctaMessage')?.value || '').trim());
         formData.append('source', 'homepage_cta');
-        formData.append('_api_key', 'hwp_lp_8f3a2b9e1c7d4f06a5e0b2c8d3f1e7a9');
 
-        fetch('https://xcrm.handwriterspublication.com/api/webhook/lead', {
-            method: 'POST',
-            body: formData
-        }).then(r => r.json()).then(data => {
+        submitLeadFormData(formData, 'homepage_cta').then(data => {
             if (data && data.success === false) throw new Error(data.message || 'Submission failed');
             const success = document.getElementById('ctaFormSuccess');
             if (success) success.style.display = 'block';
@@ -362,12 +458,8 @@ if (contactForm) {
         formData.append('indexing', indexing.join(', '));
         formData.append('message', (document.getElementById('additionalInfo')?.value || '').trim());
         formData.append('source', 'contact_page');
-        formData.append('_api_key', 'hwp_lp_8f3a2b9e1c7d4f06a5e0b2c8d3f1e7a9');
 
-        fetch('https://xcrm.handwriterspublication.com/api/webhook/lead', {
-            method: 'POST',
-            body: formData
-        }).then(r => r.json()).then(data => {
+        submitLeadFormData(formData, 'contact_page').then(data => {
             if (data && data.success === false) throw new Error(data.message || 'Submission failed');
             const success = document.getElementById('formSuccess');
             if (success) success.style.display = 'block';
@@ -470,12 +562,8 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
             formData.append('indexing', indexing.join(', '));
             formData.append('message', (document.getElementById('popupMsg')?.value || '').trim());
             formData.append('source', 'popup_form');
-            formData.append('_api_key', 'hwp_lp_8f3a2b9e1c7d4f06a5e0b2c8d3f1e7a9');
 
-            fetch('https://xcrm.handwriterspublication.com/api/webhook/lead', {
-                method: 'POST',
-                body: formData
-            }).then(r => r.json()).then(data => {
+            submitLeadFormData(formData, 'popup_form').then(data => {
                 if (data && data.success === false) throw new Error(data.message || 'Submission failed');
                 const success = document.getElementById('popupFormSuccess');
                 if (success) success.style.display = 'block';
@@ -508,7 +596,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
         { icon: '🛡️', label: 'Guarantee', info: '92–95% acceptance rate across Scopus & WoS journals. Unlimited revisions until acceptance. 100% refund if we cannot publish your paper.' },
         { icon: '🔬', label: 'Scopus Indexing', info: 'We publish in Q1, Q2, Q3 & Q4 Scopus journals. All journals verified for legitimacy. 80+ partner journals across multiple disciplines.' },
         { icon: '📋', label: 'Our Process', info: '5 steps: (1) Free Consultation (2) Manuscript Preparation (3) Journal Selection & Approval (4) Submission & Review Management (5) Acceptance & Publication.' },
-        { icon: '📧', label: 'Contact Info', info: 'Email: info@scopussphere.com | Phone: +91 92112 93696 | WhatsApp: wa.me/919211293696 | Mon–Sat, 9 AM – 7 PM IST.' }
+        { icon: '📧', label: 'Contact Info', info: 'Email: manuscriptsubmissionservices@outlook.com | Phone: +91 92112 93696 | WhatsApp: wa.me/919211293696 | Mon–Sat, 9 AM – 7 PM IST.' }
     ];
 
     const toggle = document.createElement('button');
