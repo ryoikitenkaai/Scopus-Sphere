@@ -76,21 +76,6 @@ if (carouselTrack && carouselDots && carouselPrev && carouselNext) {
     let current = 0;
     let carouselInterval;
 
-    // Position map for 5 slides
-    function getPositions(idx) {
-        const positions = {};
-        for (let i = 0; i < total; i++) {
-            const diff = ((i - idx) % total + total) % total;
-            if (diff === 0) positions[i] = 'center';
-            else if (diff === 1) positions[i] = 'right';
-            else if (diff === total - 1) positions[i] = 'left';
-            else if (diff === 2) positions[i] = 'far-right';
-            else if (diff === total - 2) positions[i] = 'far-left';
-            else positions[i] = 'hidden';
-        }
-        return positions;
-    }
-
     function buildDots() {
         carouselDots.innerHTML = '';
         slides.forEach((_, i) => {
@@ -102,9 +87,12 @@ if (carouselTrack && carouselDots && carouselPrev && carouselNext) {
     }
 
     function updateCarousel() {
-        const pos = getPositions(current);
         slides.forEach((s, i) => {
-            s.setAttribute('data-pos', pos[i]);
+            if(i === current) {
+                s.setAttribute('data-pos', 'center');
+            } else {
+                s.setAttribute('data-pos', 'hidden');
+            }
         });
         carouselDots.querySelectorAll('.c-dot').forEach((d, i) => d.classList.toggle('active', i === current));
     }
@@ -120,13 +108,12 @@ if (carouselTrack && carouselDots && carouselPrev && carouselNext) {
 
     function resetAutoSlide() {
         clearInterval(carouselInterval);
-        carouselInterval = setInterval(nextSlide, 2000);
+        carouselInterval = setInterval(nextSlide, 4000);
     }
 
     carouselPrev.addEventListener('click', prevSlide);
     carouselNext.addEventListener('click', nextSlide);
 
-    // Touch/swipe support
     let touchStartX = 0;
     carouselTrack.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
     carouselTrack.addEventListener('touchend', (e) => {
@@ -134,24 +121,18 @@ if (carouselTrack && carouselDots && carouselPrev && carouselNext) {
         if (Math.abs(diff) > 40) { diff > 0 ? nextSlide() : prevSlide(); }
     }, { passive: true });
 
-    // Pause on hover
     carouselTrack.addEventListener('mouseenter', () => clearInterval(carouselInterval));
-    carouselTrack.addEventListener('mouseleave', () => { carouselInterval = setInterval(nextSlide, 2000); });
+    carouselTrack.addEventListener('mouseleave', () => { carouselInterval = setInterval(nextSlide, 4000); });
 
     buildDots();
     updateCarousel();
-    carouselInterval = setInterval(nextSlide, 2000);
+    carouselInterval = setInterval(nextSlide, 4000);
 }
 
 // ---------- CTA Floating Particles ----------
 const ctaParticles = document.getElementById('ctaParticles');
 if (ctaParticles) {
-    for (let i = 0; i < 25; i++) {
-        const p = document.createElement('div');
-        p.className = 'particle';
-        p.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*100}%;--dur:${6+Math.random()*8}s;--delay:${Math.random()*5}s;--tx:${(Math.random()-.5)*80}px;--ty:${(Math.random()-.5)*80}px;--tx2:${(Math.random()-.5)*60}px;--ty2:${(Math.random()-.5)*100}px;--tx3:${(Math.random()-.5)*70}px;--ty3:${(Math.random()-.5)*50}px;width:${2+Math.random()*4}px;height:${2+Math.random()*4}px;`;
-        ctaParticles.appendChild(p);
-    }
+    // Particles disabled
 }
 
 // ---------- WhatsApp Prefix Lock ----------
@@ -356,14 +337,7 @@ if (ctaForm) {
 
 // ---------- Floating Orbs (Background Ambiance) ----------
 (function createOrbs() {
-    const colors = ['rgba(184,134,11,0.15)', 'rgba(26,35,50,0.08)', 'rgba(184,134,11,0.1)'];
-    for (let i = 0; i < 3; i++) {
-        const orb = document.createElement('div');
-        orb.className = 'floating-orb';
-        const size = 200 + Math.random() * 300;
-        orb.style.cssText = `width:${size}px;height:${size}px;background:${colors[i]};top:${Math.random()*80}%;left:${Math.random()*80}%;--orb-dur:${15+Math.random()*15}s;--orb-x:${(Math.random()-.5)*100}px;--orb-y:${(Math.random()-.5)*100}px;--orb-x2:${(Math.random()-.5)*80}px;--orb-y2:${(Math.random()-.5)*80}px;`;
-        document.body.appendChild(orb);
-    }
+    // Orbs disabled
 })();
 
 // ---------- Testimonials Slider ----------
@@ -501,12 +475,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 
     // Generate popup particles
     if (popupParticles) {
-        for (let i = 0; i < 20; i++) {
-            const p = document.createElement('div');
-            p.className = 'pp';
-            p.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${5+Math.random()*8}s;--dl:${Math.random()*4}s;--px:${(Math.random()-.5)*60}px;--py:${(Math.random()-.5)*60}px;width:${2+Math.random()*3}px;height:${2+Math.random()*3}px;`;
-            popupParticles.appendChild(p);
-        }
+        // Popup particles disabled
     }
 
     function openPopup() {
