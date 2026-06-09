@@ -630,3 +630,34 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
         });
     });
 })();
+
+// ---------- Services Horizontal Drag Scroll ----------
+const servicesScroll = document.getElementById('servicesScroll');
+if (servicesScroll) {
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    servicesScroll.addEventListener('mousedown', (e) => {
+        isDown = true;
+        servicesScroll.style.cursor = 'grabbing';
+        startX = e.pageX - servicesScroll.offsetLeft;
+        scrollLeft = servicesScroll.scrollLeft;
+    });
+    servicesScroll.addEventListener('mouseleave', () => {
+        isDown = false;
+        servicesScroll.style.cursor = 'grab';
+    });
+    servicesScroll.addEventListener('mouseup', () => {
+        isDown = false;
+        servicesScroll.style.cursor = 'grab';
+    });
+    servicesScroll.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - servicesScroll.offsetLeft;
+        const walk = (x - startX) * 2; // scroll-fast
+        servicesScroll.scrollLeft = scrollLeft - walk;
+    });
+    servicesScroll.style.cursor = 'grab';
+}
